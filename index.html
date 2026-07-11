@@ -3,115 +3,192 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>光遇代肝 · Sky Cocoon</title>
+<title>小羊代肝 · Sky</title>
 <style>
   :root {
-    --bg: #0d0e12;
-    --card-bg: #181a22;
-    --card-hover: #1e2030;
+    --bg: #090b10;
+    --card-bg: #14161f;
+    --card-bg-alt: #1a1d2a;
     --gold: #d4a853;
     --gold-light: #e8d5a0;
+    --gold-bright: #f0d878;
     --gold-dim: #a0843c;
-    --text: #ccc;
-    --text-dim: #888;
-    --text-bright: #e6e6e6;
+    --text: #c5c5d0;
+    --text-dim: #7a7d8a;
+    --text-bright: #e8e8f0;
     --accent: #c49b3f;
-    --border: #2a2c38;
+    --border: #252836;
+    --border-gold: rgba(212,168,83,0.25);
     --tag-bg: #2a2014;
     --tag-text: #d4a853;
     --danger: #e05555;
-    --radius: 10px;
+    --radius: 12px;
+    --shadow-card: 0 4px 28px rgba(0,0,0,0.45);
+    --shadow-gold: 0 0 40px rgba(212,168,83,0.08);
+    --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   * { margin:0; padding:0; box-sizing:border-box; }
 
+  /* ---- Animations ---- */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(16px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 16px rgba(240,216,120,0.18), 0 0 50px rgba(212,168,83,0.08), inset 0 0 24px rgba(212,168,83,0.02); }
+    50%      { box-shadow: 0 0 32px rgba(240,216,120,0.35), 0 0 80px rgba(212,168,83,0.14), inset 0 0 40px rgba(212,168,83,0.06); }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-3px); }
+  }
+
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-    line-height: 1.6;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", -apple-system, sans-serif;
+    line-height: 1.7;
     min-height: 100vh;
     background-image:
-      radial-gradient(ellipse at 50% 0%, rgba(212,168,83,0.06) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 100%, rgba(212,168,83,0.04) 0%, transparent 60%);
+      radial-gradient(ellipse 1200px 600px at 50% -10%, rgba(212,168,83,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 900px 500px at 85% 95%, rgba(212,168,83,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 600px 400px at 15% 40%, rgba(180,150,100,0.03) 0%, transparent 50%);
+    -webkit-font-smoothing: antialiased;
   }
 
   .container {
-    max-width: 880px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 24px 16px 60px;
+    padding: 28px 20px 80px;
   }
 
-  /* ---- Header ---- */
+  /* ===== Header ===== */
   .header {
     text-align: center;
-    padding: 48px 16px 36px;
+    padding: 52px 16px 12px;
     position: relative;
-  }
-  .header::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 20px auto 0;
-    border-radius: 1px;
+    animation: fadeUp 0.7s ease-out;
   }
   .header h1 {
-    font-size: clamp(24px, 5vw, 36px);
-    font-weight: 700;
-    color: var(--gold-light);
-    letter-spacing: 2px;
-    margin-bottom: 6px;
+    font-size: clamp(30px, 7vw, 46px);
+    font-weight: 800;
+    letter-spacing: 4px;
+    margin-bottom: 4px;
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-bright) 35%, var(--gold) 65%, var(--gold-light) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
   }
   .header .subtitle {
-    font-size: 15px;
+    font-size: 14px;
     color: var(--text-dim);
-    letter-spacing: 4px;
+    letter-spacing: 5px;
     text-transform: uppercase;
   }
 
-  /* ---- Sections ---- */
-  section { margin-bottom: 32px; }
+  /* ===== Contact Banner (top, prominent) ===== */
+  .contact-banner {
+    text-align: center;
+    margin: 16px auto 36px;
+    animation: fadeUp 0.7s ease-out;
+    animation-delay: 0.15s;
+    animation-fill-mode: both;
+  }
+  .contact-pill {
+    display: inline-block;
+    background: var(--card-bg);
+    border: 2px solid var(--gold);
+    border-radius: 50px;
+    padding: 14px 44px;
+    animation: glowPulse 3s ease-in-out infinite;
+    position: relative;
+    overflow: visible;
+  }
+  .contact-pill .label {
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .contact-pill .id {
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 800;
+    color: var(--gold-bright);
+    letter-spacing: 3px;
+    font-family: "SF Mono", "Menlo", "Consolas", "Courier New", monospace;
+    text-shadow: 0 0 24px rgba(240,216,120,0.35);
+    animation: float 3s ease-in-out infinite;
+  }
+  .contact-pill .hint {
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  /* ===== Divider ===== */
+  .divider {
+    display: block;
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212,168,83,0.35), transparent);
+    margin: 0 auto 32px;
+  }
+
+  /* ===== Section ===== */
+  section {
+    margin-bottom: 36px;
+    animation: fadeUp 0.7s ease-out;
+    animation-fill-mode: both;
+  }
+  section:nth-child(2) { animation-delay: 0.2s; }
+  section:nth-child(3) { animation-delay: 0.3s; }
   .section-title {
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 700;
     color: var(--gold);
-    margin-bottom: 16px;
-    padding-left: 12px;
+    margin-bottom: 18px;
+    padding-left: 14px;
     border-left: 3px solid var(--accent);
-    letter-spacing: 1px;
-    display: flex; align-items: center; gap: 8px;
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
-  .section-title .icon { font-size: 20px; }
+  .section-title .icon { font-size: 21px; }
 
-  /* ---- Card ---- */
+  /* ===== Card ===== */
   .card {
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 20px;
-    margin-bottom: 16px;
-    transition: border-color .25s, background .25s;
+    padding: 22px 24px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow-card);
+    transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
   }
   .card:hover {
-    border-color: var(--gold-dim);
-    background: var(--card-hover);
+    border-color: var(--border-gold);
+    box-shadow: var(--shadow-card), var(--shadow-gold);
+    transform: translateY(-2px);
   }
   .card-title {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 700;
     color: var(--text-bright);
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     letter-spacing: 1px;
   }
-  .card-subtitle {
-    font-size: 13px;
-    color: var(--gold-dim);
-    margin-bottom: 10px;
-  }
 
-  /* ---- Table ---- */
+  /* ===== Table ===== */
   table {
     width: 100%;
     border-collapse: collapse;
@@ -119,7 +196,7 @@
   }
   th, td {
     text-align: left;
-    padding: 8px 6px;
+    padding: 10px 8px;
     border-bottom: 1px solid var(--border);
   }
   th {
@@ -127,45 +204,50 @@
     font-weight: 600;
     font-size: 13px;
     white-space: nowrap;
+    letter-spacing: 0.5px;
   }
   td { color: var(--text); }
+  tbody tr { transition: background 0.2s; }
+  tbody tr:hover { background: rgba(255,255,255,0.015); }
   tr:last-child td { border-bottom: none; }
-  .price { color: var(--gold); font-weight: 600; white-space: nowrap; }
-  .note { font-size: 12px; color: var(--text-dim); }
+  .price { color: var(--gold); font-weight: 700; white-space: nowrap; }
+  .note { font-size: 12px; color: var(--text-dim); font-style: italic; }
 
-  /* ---- Tags ---- */
+  /* ===== Tags ===== */
   .tag {
     display: inline-block;
     background: var(--tag-bg);
     color: var(--tag-text);
     font-size: 11px;
-    padding: 2px 7px;
-    border-radius: 4px;
-    margin-left: 4px;
+    padding: 2px 8px;
+    border-radius: 5px;
+    margin-left: 5px;
     vertical-align: middle;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.5px;
   }
   .tag-hard {
     background: #2a1414;
     color: var(--danger);
+    border: 1px solid rgba(224,85,85,0.2);
   }
 
-  /* ---- Highlight box ---- */
+  /* ===== Highlight ===== */
   .highlight {
-    background: linear-gradient(135deg, rgba(212,168,83,0.08), rgba(212,168,83,0.02));
-    border: 1px solid rgba(212,168,83,0.18);
+    background: linear-gradient(135deg, rgba(212,168,83,0.1), rgba(212,168,83,0.03));
+    border: 1px solid rgba(212,168,83,0.2);
     border-radius: var(--radius);
-    padding: 14px 18px;
-    margin-top: 12px;
+    padding: 16px 20px;
+    margin-top: 14px;
   }
   .highlight .row {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 20px;
     align-items: baseline;
   }
   .highlight .item {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--text-bright);
   }
   .highlight .item span {
@@ -173,63 +255,70 @@
     font-weight: 700;
   }
 
-  /* ---- Season grid ---- */
+  /* ===== Season grid ===== */
   .season-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 10px;
   }
   .season-item {
-    background: var(--card-bg);
+    background: var(--card-bg-alt);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 14px;
+    border-radius: 9px;
+    padding: 11px 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
-    transition: border-color .2s;
+    transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
   }
-  .season-item:hover { border-color: var(--gold-dim); }
-  .season-name { color: var(--text-bright); }
+  .season-item:hover {
+    border-color: var(--border-gold);
+    box-shadow: 0 0 16px rgba(212,168,83,0.06);
+    transform: translateY(-1px);
+  }
+  .season-name { color: var(--text-bright); font-weight: 600; }
   .season-detail { font-size: 12px; color: var(--text-dim); margin-right: 4px; }
-  .season-price { color: var(--gold); font-weight: 600; white-space: nowrap; }
+  .season-price { color: var(--gold); font-weight: 700; white-space: nowrap; font-size: 15px; }
 
-  /* ---- Footer ---- */
+  /* ===== Footer ===== */
   .footer {
     text-align: center;
-    padding: 32px 16px 20px;
-    margin-top: 24px;
-    border-top: 1px solid var(--border);
+    padding: 36px 20px 24px;
+    margin-top: 28px;
+    animation: fadeUp 0.7s ease-out;
+    animation-delay: 0.35s;
+    animation-fill-mode: both;
   }
-  .footer .contact-label {
-    font-size: 13px;
-    color: var(--text-dim);
-    letter-spacing: 2px;
-    margin-bottom: 8px;
-  }
-  .footer .contact-id {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--gold-light);
-    letter-spacing: 2px;
-    font-family: "SF Mono", "Menlo", "Consolas", monospace;
-  }
-  .footer .hint {
+  .footer .divider { margin-bottom: 28px; }
+  .footer .copy {
     font-size: 12px;
     color: var(--text-dim);
-    margin-top: 6px;
+    letter-spacing: 2px;
   }
 
-  /* ---- Responsive ---- */
-  @media (max-width: 600px) {
-    .container { padding: 12px 10px 40px; }
-    .header { padding: 32px 10px 24px; }
-    .card { padding: 14px; }
+  /* ===== Responsive ===== */
+  @media (max-width: 640px) {
+    .container { padding: 16px 12px 60px; }
+    .header { padding: 36px 10px 8px; }
+    .header h1 { letter-spacing: 2px; }
+    .header .subtitle { letter-spacing: 3px; font-size: 12px; }
+    .contact-pill { padding: 12px 28px; }
+    .contact-pill .id { letter-spacing: 2px; }
+    .card { padding: 16px 14px; }
+    .card-title { font-size: 15px; }
     table { font-size: 13px; }
-    th, td { padding: 6px 4px; }
-    .season-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 6px; }
-    .season-item { padding: 8px 10px; font-size: 13px; }
+    th, td { padding: 7px 4px; }
+    .season-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 7px; }
+    .season-item { padding: 9px 11px; font-size: 13px; }
+    .season-price { font-size: 14px; }
+    .highlight .row { gap: 12px; }
+  }
+  @media (max-width: 400px) {
+    .season-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+    .season-item { padding: 8px 9px; }
+    .season-detail { display: none; }
+    .contact-pill { padding: 10px 20px; }
   }
 </style>
 </head>
@@ -239,15 +328,25 @@
 
   <!-- ====== Header ====== -->
   <header class="header">
-    <h1>光遇代肝 · Sky Cocoon</h1>
+    <h1>小羊代肝 · Sky</h1>
     <div class="subtitle">温暖庇护 · 代你飞翔</div>
   </header>
 
+  <!-- ====== Contact Banner (TOP) ====== -->
+  <div class="contact-banner">
+    <div class="contact-pill">
+      <div class="label">联系方式</div>
+      <div class="id">Pisces997x</div>
+      <div class="hint">添加请备注「光遇代肝」</div>
+    </div>
+  </div>
+
+  <span class="divider"></span>
+
   <!-- ====== 代找先祖 ====== -->
   <section>
-    <div class="section-title"><span class="icon">🔍</span> 代找先祖</div>
+    <div class="section-title"><span class="icon">&#x1F50D;</span> 代找先祖</div>
 
-    <!-- 全图套餐 -->
     <div class="card">
       <div class="card-title">全图套餐</div>
       <table>
@@ -259,9 +358,8 @@
       </table>
     </div>
 
-    <!-- 各季节先祖 -->
     <div class="card">
-      <div class="card-title">各季节先祖 <span style="font-size:13px;color:var(--text-dim);font-weight:400;">共 90 个 · 全包 129R</span></div>
+      <div class="card-title">各季节先祖 <span style="font-size:13px;color:var(--gold-dim);font-weight:400;">共 90 个 &middot; 全包 129R</span></div>
       <div class="season-grid">
         <div class="season-item">
           <div><span class="season-name">感恩季</span><span class="season-detail"> 6个 (4运光2追光)</span></div>
@@ -346,7 +444,6 @@
       </div>
     </div>
 
-    <!-- 单个先祖价格 -->
     <div class="highlight">
       <div class="row">
         <div class="item">追光先祖 <span>1R / 个</span></div>
@@ -357,41 +454,40 @@
 
   <!-- ====== 代跑服务 ====== -->
   <section>
-    <div class="section-title"><span class="icon">🏃</span> 代跑服务</div>
+    <div class="section-title"><span class="icon">&#x1F3C3;</span> 代跑服务</div>
 
-    <!-- 六大图跑图 -->
     <div class="card">
       <div class="card-title">六大图跑图</div>
       <table>
         <thead><tr><th>地图</th><th>一天</th><th>包周</th><th>包月</th><th>备注</th></tr></thead>
         <tbody>
           <tr>
-            <td style="color:var(--text-bright)">晨岛</td>
+            <td style="color:var(--text-bright);font-weight:600;">晨岛</td>
             <td class="price">1R</td><td class="price">5R</td><td class="price">20R</td>
             <td class="note">不包试炼</td>
           </tr>
           <tr>
-            <td style="color:var(--text-bright)">云野</td>
+            <td style="color:var(--text-bright);font-weight:600;">云野</td>
             <td class="price">3R</td><td class="price">18R</td><td class="price">60R</td>
             <td class="note"></td>
           </tr>
           <tr>
-            <td style="color:var(--text-bright)">雨林</td>
+            <td style="color:var(--text-bright);font-weight:600;">雨林</td>
             <td class="price">3R</td><td class="price">18R</td><td class="price">60R</td>
             <td class="note">不包风行网道</td>
           </tr>
           <tr>
-            <td style="color:var(--text-bright)">霞谷</td>
+            <td style="color:var(--text-bright);font-weight:600;">霞谷</td>
             <td class="price">3R</td><td class="price">18R</td><td class="price">60R</td>
             <td class="note">不包雪隐峰赛道</td>
           </tr>
           <tr>
-            <td style="color:var(--text-bright)">暮土</td>
+            <td style="color:var(--text-bright);font-weight:600;">暮土</td>
             <td class="price">3R</td><td class="price">18R</td><td class="price">60R</td>
             <td class="note">大花随缘</td>
           </tr>
           <tr>
-            <td style="color:var(--text-bright)">禁阁</td>
+            <td style="color:var(--text-bright);font-weight:600;">禁阁</td>
             <td class="price">3R</td><td class="price">18R</td><td class="price">60R</td>
             <td class="note"></td>
           </tr>
@@ -407,44 +503,42 @@
       </div>
     </div>
 
-    <!-- 每日任务 -->
     <div class="card">
       <div class="card-title">每日任务</div>
       <table>
         <thead><tr><th>项目</th><th>一天</th><th>包周</th><th>包月</th></tr></thead>
         <tbody>
           <tr>
-            <td style="color:var(--text-bright)">每日任务</td>
+            <td style="color:var(--text-bright);font-weight:600;">每日任务</td>
             <td class="price">1R</td><td class="price">7R</td><td class="price">27R</td>
           </tr>
           <tr>
-            <td style="color:var(--text-bright)">每日任务 + 季蜡</td>
+            <td style="color:var(--text-bright);font-weight:600;">每日任务 + 季蜡</td>
             <td class="price">2R</td><td class="price">14R</td><td class="price">50R</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- 蜡烛套餐 -->
     <div class="card">
-      <div class="card-title">🔥 蜡烛套餐</div>
+      <div class="card-title">&#x1F525; 蜡烛套餐</div>
       <table>
         <thead><tr><th>数量</th><th>一天</th><th>包周</th><th>包月</th><th>备注</th></tr></thead>
         <tbody>
           <tr>
-            <td style="color:var(--text-bright)">5 根</td>
+            <td style="color:var(--text-bright);font-weight:600;">5 根</td>
             <td class="price">2R</td><td class="price">12R</td><td class="price">50R</td><td class="note"></td>
           </tr>
           <tr>
-            <td style="color:var(--text-bright)">10 根</td>
+            <td style="color:var(--text-bright);font-weight:600;">10 根</td>
             <td class="price">3R</td><td class="price">18R</td><td class="price">80R</td><td class="note"></td>
           </tr>
           <tr>
-            <td style="color:var(--text-bright)">15 根</td>
+            <td style="color:var(--text-bright);font-weight:600;">15 根</td>
             <td class="price">5R</td><td class="price">31R</td><td class="price">140R</td><td class="note"></td>
           </tr>
           <tr>
-            <td style="color:var(--text-bright)">20 根</td>
+            <td style="color:var(--text-bright);font-weight:600;">20 根</td>
             <td class="price">10R</td><td class="price">60R</td><td class="price">270R</td>
             <td class="note">包月送每日任务 15 次</td>
           </tr>
@@ -452,9 +546,8 @@
       </table>
     </div>
 
-    <!-- 季节包毕业 + 其他服务 -->
     <div class="card">
-      <div class="card-title">🍁 季节包毕业 <span class="note">（季卡自买）</span></div>
+      <div class="card-title">&#x1F341; 季节包毕业 <span class="note">（季卡自买）</span></div>
       <div class="highlight" style="margin:0;">
         <div class="row">
           <div class="item">有卡包毕业 <span>100R</span></div>
@@ -464,15 +557,15 @@
     </div>
 
     <div class="card">
-      <div class="card-title">☀️ 其他服务</div>
+      <div class="card-title">&#x2600;&#xFE0F; 其他服务</div>
       <table>
         <thead><tr><th>项目</th><th style="text-align:right">价格</th><th>备注</th></tr></thead>
         <tbody>
-          <tr><td style="color:var(--text-bright)">开全图</td><td class="price" style="text-align:right">15R</td><td class="note"></td></tr>
-          <tr><td style="color:var(--text-bright)">小金人</td><td class="price" style="text-align:right">20R</td><td class="note">不包试炼和破晓季</td></tr>
-          <tr><td style="color:var(--text-bright)">献祭</td><td class="price" style="text-align:right">7R</td><td class="note"></td></tr>
-          <tr><td style="color:var(--text-bright)">代币</td><td class="price" style="text-align:right">1.5R/天 或 15R/全物品</td><td class="note"></td></tr>
-          <tr><td style="color:var(--text-bright)">烧红石</td><td class="price" style="text-align:right">2R/次</td><td class="note"></td></tr>
+          <tr><td style="color:var(--text-bright);font-weight:600;">开全图</td><td class="price" style="text-align:right">15R</td><td class="note"></td></tr>
+          <tr><td style="color:var(--text-bright);font-weight:600;">小金人</td><td class="price" style="text-align:right">20R</td><td class="note">不包试炼和破晓季</td></tr>
+          <tr><td style="color:var(--text-bright);font-weight:600;">献祭</td><td class="price" style="text-align:right">7R</td><td class="note"></td></tr>
+          <tr><td style="color:var(--text-bright);font-weight:600;">代币</td><td class="price" style="text-align:right">1.5R/天 或 15R/全物品</td><td class="note"></td></tr>
+          <tr><td style="color:var(--text-bright);font-weight:600;">烧红石</td><td class="price" style="text-align:right">2R/次</td><td class="note"></td></tr>
         </tbody>
       </table>
     </div>
@@ -480,9 +573,8 @@
 
   <!-- ====== Footer ====== -->
   <footer class="footer">
-    <div class="contact-label">— 联系方式 —</div>
-    <div class="contact-id">Pisces997x</div>
-    <div class="hint">添加请备注「光遇代肝」</div>
+    <span class="divider"></span>
+    <div class="copy">&copy; 小羊代肝 · Sky Cocoon</div>
   </footer>
 
 </div>
