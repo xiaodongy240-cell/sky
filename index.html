@@ -131,12 +131,23 @@
   .form-error { display:none; padding:10px 16px; border-radius:8px; background:rgba(200,88,88,0.08); border:1px solid rgba(200,88,88,0.15); color:#c87878; font-size:12px; margin-bottom:14px; text-align:center; }
   .form-error.show { display:block; }
 
+  /* NAV GUIDE */
+  .nav-guide { display:flex; gap:24px; justify-content:center; max-width:620px; margin:0 auto; padding:0 24px 80px; position:relative; z-index:1; }
+  .nav-guide-card { flex:1; background:var(--card); backdrop-filter:blur(40px); -webkit-backdrop-filter:blur(40px); border:1px solid var(--border); border-radius:var(--radius); padding:26px 20px; text-decoration:none; color:var(--text); display:flex; flex-direction:column; align-items:center; text-align:center; transition:border-color 0.45s,box-shadow 0.45s,transform 0.45s,background 0.45s; position:relative; overflow:hidden; }
+  .nav-guide-card:hover { border-color:var(--border-gold); background:var(--card-hover); box-shadow:var(--shadow-hover); transform:translateY(-4px); }
+  .nav-guide-card .ng-icon { font-size:26px; margin-bottom:10px; transition:transform 0.35s; }
+  .nav-guide-card:hover .ng-icon { transform:scale(1.1); }
+  .nav-guide-card .ng-title { font-family:"Cinzel",serif; font-size:15px; font-weight:600; color:var(--text-bright); letter-spacing:2px; margin-bottom:4px; }
+  .nav-guide-card .ng-desc { font-size:11px; color:var(--text-dim); line-height:1.5; margin-bottom:12px; }
+  .nav-guide-card .ng-arrow { font-size:13px; color:var(--gold-light); transition:transform 0.35s,color 0.35s; }
+  .nav-guide-card:hover .ng-arrow { transform:translateX(3px); color:var(--gold); }
+
   /* SERVICE HIGHLIGHTS */
-  .service-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-  .service-item { text-align:center; padding:24px 16px; }
-  .service-item .si-icon { font-size:32px; margin-bottom:10px; }
-  .service-item .si-title { font-family:"Cinzel",serif; font-size:15px; color:var(--text-bright); font-weight:600; letter-spacing:2px; margin-bottom:6px; }
-  .service-item .si-desc { font-size:12px; color:var(--text-dim); line-height:1.6; }
+  .service-row { display:flex; justify-content:center; gap:40px; flex-wrap:wrap; }
+  .service-dot { display:flex; flex-direction:column; align-items:center; gap:8px; padding:8px; }
+  .service-dot .sd-icon { font-size:26px; opacity:0.85; transition:transform 0.35s; }
+  .service-dot:hover .sd-icon { transform:scale(1.15); }
+  .service-dot .sd-label { font-family:"Inter",sans-serif; font-size:12px; color:var(--text-bright); font-weight:500; letter-spacing:1.5px; }
 
   /* FOOTER */
   .footer { text-align:center; padding:56px 20px 36px; margin-top:40px; position:relative; z-index:1; }
@@ -193,7 +204,7 @@
     </button>
   </nav>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="index.html">首页</a>
+    <a href="index.html" class="active">首页</a>
     <a href="pricing.html">价格</a>
     <a href="about.html">关于</a>
   </div>
