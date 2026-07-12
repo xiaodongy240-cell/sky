@@ -42,7 +42,7 @@
     --bg-gradient: radial-gradient(ellipse 1100px 600px at 50% 0%, rgba(191,155,68,0.055) 0%, transparent 70%), radial-gradient(ellipse 800px 450px at 80% 75%, rgba(191,155,68,0.035) 0%, transparent 60%);
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
+  html { scroll-behavior:smooth; scroll-padding-top:80px; }
   /* Focus ring for keyboard navigation */
   :focus-visible { outline:2px solid var(--gold-light); outline-offset:3px; border-radius:4px; }
   :focus:not(:focus-visible) { outline:none; }
@@ -87,10 +87,10 @@
   [data-theme="dark"] .hero .slide img { filter:saturate(0.8) brightness(0.55); }
   .hero .slide.active img { transform:scale(1); }
   .hero-overlay { position:absolute; inset:0; background:var(--hero-overlay); z-index:1; pointer-events:none; }
-  .hero-content { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; z-index:2; padding:0 24px 60px; }
+  .hero-content { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; z-index:2; padding:70px 24px 60px; }
   .hero-content .brand-name { font-family:"Cinzel",serif; font-size:clamp(38px,8.5vw,68px); font-weight:700; letter-spacing:12px; color:#fff; text-shadow:0 2px 24px rgba(140,100,50,0.35),0 1px 4px rgba(0,0,0,0.15); margin-bottom:12px; }
   .hero-content .brand-tagline { font-family:"Cinzel",serif; font-size:14px; color:rgba(255,255,255,0.85); letter-spacing:10px; text-transform:uppercase; margin-bottom:40px; font-weight:400; text-shadow:0 1px 8px rgba(0,0,0,0.2); }
-  .hero-content .hero-contact { display:inline-flex; flex-direction:column; align-items:center; gap:6px; background:rgba(255,252,246,0.16); backdrop-filter:blur(36px); -webkit-backdrop-filter:blur(36px); border:1px solid rgba(255,255,255,0.22); border-radius:20px; padding:18px 44px; }
+  .hero-content .hero-contact { display:inline-flex; flex-direction:column; align-items:center; gap:6px; background:rgba(20,18,14,0.55); backdrop-filter:blur(36px); -webkit-backdrop-filter:blur(36px); border:1px solid rgba(255,255,255,0.25); border-radius:20px; padding:18px 44px; }
   .hero-content .hero-contact .contact-label { font-family:"Inter",sans-serif; font-size:10px; color:rgba(255,255,255,0.7); letter-spacing:4px; text-transform:uppercase; font-weight:500; }
   .hero-content .hero-contact .contact-id { font-family:"Cinzel",serif; font-size:clamp(18px,3.5vw,26px); font-weight:700; color:#fff; letter-spacing:5px; text-shadow:0 0 20px rgba(255,255,255,0.3); }
   .hero-content .hero-contact .contact-hint { font-family:"Inter",sans-serif; font-size:10px; color:rgba(255,255,255,0.65); letter-spacing:1px; font-weight:300; }
@@ -120,7 +120,7 @@
   .section-heading .section-text .section-title { font-family:"Cinzel",serif; font-size:28px; font-weight:700; color:var(--text-bright); letter-spacing:3px; }
   .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.9s cubic-bezier(0.22,0.61,0.36,1),transform 0.9s cubic-bezier(0.22,0.61,0.36,1); will-change:transform,opacity; }
   .reveal.visible { opacity:1; transform:translateY(0); }
-  .card { background:var(--card); backdrop-filter:blur(60px); -webkit-backdrop-filter:blur(60px); border:1px solid var(--border); border-radius:var(--radius); padding:34px 34px 30px; margin-bottom:20px; transition:border-color 0.5s cubic-bezier(0.25,0.1,0.25,1),box-shadow 0.5s cubic-bezier(0.25,0.1,0.25,1),transform 0.5s cubic-bezier(0.25,0.1,0.25,1),background 0.5s cubic-bezier(0.25,0.1,0.25,1); position:relative; overflow:hidden; }
+  .card { background:var(--card); backdrop-filter:blur(60px); -webkit-backdrop-filter:blur(60px); border:1px solid var(--border); border-radius:var(--radius); padding:34px 34px 30px; margin-bottom:24px; transition:border-color 0.5s cubic-bezier(0.25,0.1,0.25,1),box-shadow 0.5s cubic-bezier(0.25,0.1,0.25,1),transform 0.5s cubic-bezier(0.25,0.1,0.25,1),background 0.5s cubic-bezier(0.25,0.1,0.25,1); position:relative; overflow:hidden; }
   .card::before { content:''; position:absolute; inset:0; border-radius:inherit; border:1px solid transparent; transition:border-color 0.6s ease; pointer-events:none; z-index:1; }
   .card:hover::before { border-color:rgba(196,154,74,0.18); }
   .card:hover { border-color:var(--border-gold); background:var(--card-hover); box-shadow:var(--shadow-hover); transform:translateY(-1px) scale(1.008); }
@@ -175,8 +175,9 @@
   .table-row.table-row-header { padding:11px 18px 9px; border-bottom:1px solid var(--border-gold); font-family:"Inter",sans-serif; font-size:10px; color:var(--text-dim); letter-spacing:2px; font-weight:600; text-transform:uppercase; background:transparent; }
   .table-row.table-row-header:hover { background:transparent; }
   .table-row .col-name { flex:1; font-weight:500; color:var(--text-bright); font-size:14px; min-width:0; }
-  .table-row .col-price { font-family:"Cinzel",serif; font-weight:700; color:var(--gold); white-space:nowrap; font-size:16px; text-align:right; min-width:48px; letter-spacing:1px; }
-  .table-row .col-note { font-size:12px; color:var(--text-dim); flex:0 0 140px; text-align:right; font-style:italic; }
+  .table-row .col-price { font-family:"Cinzel",serif; font-weight:700; color:var(--gold); white-space:nowrap; font-size:16px; text-align:right; min-width:44px; letter-spacing:1px; }
+  .table-row .col-price.col-price-wide { white-space:normal; min-width:60px; font-size:13px; line-height:1.3; }
+  .table-row .col-note { font-size:12px; color:var(--text-dim); flex:0 0 130px; text-align:right; font-style:italic; }
   .table-row .col-count { font-size:13px; color:var(--text); text-align:right; min-width:50px; }
   .card > .card-title .title-meta { font-family:"Inter",sans-serif; font-size:12px; color:var(--gold-warm); font-weight:400; letter-spacing:0.5px; }
   .tag-hard { background:rgba(200,88,88,0.1); color:var(--danger); border:1px solid rgba(200,88,88,0.12); }
@@ -197,15 +198,15 @@
   /* ACCORDION */
   .accordion-item { border-bottom:1px solid var(--border); }
   .accordion-item:last-child { border-bottom:none; }
-  .accordion-header { display:flex; align-items:center; justify-content:space-between; padding:16px 0; cursor:pointer; font-weight:600; color:var(--text-bright); font-size:15px; transition:color 0.3s; -webkit-tap-highlight-color:transparent; }
+  .accordion-header { display:flex; align-items:center; justify-content:space-between; padding:15px 4px; cursor:pointer; font-weight:600; color:var(--text-bright); font-size:15px; transition:color 0.3s; -webkit-tap-highlight-color:transparent; }
   .accordion-header:hover { color:var(--gold-light); }
   .accordion-header .acc-icon { font-size:12px; transition:transform 0.3s; color:var(--gold); }
   .accordion-item.open .acc-icon { transform:rotate(180deg); }
   .accordion-body { max-height:0; overflow:hidden; transition:max-height 0.4s ease; font-size:14px; color:var(--text); line-height:1.8; }
-  .accordion-body-inner { padding:0 0 18px; }
+  .accordion-body-inner { padding:6px 4px 18px; }
 
   /* FOOTER */
-  .footer { text-align:center; padding:56px 20px 36px; margin-top:40px; position:relative; z-index:1; }
+  .footer { text-align:center; padding:40px 20px 28px; margin-top:20px; position:relative; z-index:1; }
   .footer .footer-divider { width:36px; height:1px; background:rgba(196,154,74,0.3); margin:0 auto 30px; }
   .footer .footer-brand { font-family:"Cinzel",serif; font-size:16px; font-weight:600; color:var(--gold-warm); letter-spacing:4px; margin-bottom:10px; }
   .footer .footer-slogan { font-family:"Inter",sans-serif; font-size:12px; color:var(--text-dim); letter-spacing:2px; font-weight:300; margin-bottom:24px; }
@@ -230,7 +231,7 @@
     .service-grid { grid-template-columns:1fr; }
     .hero .carousel-dots { right:20px; bottom:20px; }
     .container { padding:0 16px 80px; }
-    .footer { padding:36px 16px 26px; }
+    .footer { padding:30px 16px 22px; margin-top:16px; }
     .footer .footer-links { gap:18px; }
     .highlight-box { padding:14px 18px; gap:16px; }
     .scroll-row-wrapper { margin:0 -16px; padding:0 16px; }
@@ -239,6 +240,7 @@
   @media (max-width:480px) {
     body { font-size:14px; }
     .hero { height:420px; min-height:auto; }
+    .hero-content { padding:60px 16px 50px; }
     .hero-content .brand-name { font-size:30px; letter-spacing:3px; }
     .hero-content .brand-tagline { font-size:10px; letter-spacing:4px; margin-bottom:20px; }
     .hero-content .hero-contact { padding:12px 18px; border-radius:16px; }
@@ -247,8 +249,8 @@
     .hero-copy-btn { padding:8px 14px; font-size:13px; letter-spacing:1px; gap:6px; }
     .scroll-hint { bottom:22px; }
     section { margin-bottom:60px; }
-    .card { padding:20px 15px; border-radius:18px; }
-    .card > .card-title { font-size:15px; }
+    .card { padding:20px 15px; border-radius:18px; margin-bottom:18px; }
+    .card > .card-title { font-size:15px; margin-bottom:16px; }
     .section-heading .section-text .section-title { font-size:19px; }
     .hero .carousel-dots { right:16px; bottom:16px; gap:8px; }
     .hero .carousel-dots button { width:5px; height:5px; }
@@ -256,6 +258,7 @@
     .table-row .col-note { display:none; }
     .table-row.table-row-header .col-note { display:none; }
     .table-row .col-price { min-width:34px; font-size:13px; letter-spacing:0; }
+    .table-row .col-price.col-price-wide { min-width:60px; font-size:11px; white-space:normal; }
     .table-row .col-name { font-size:13px; }
     .table-row.table-row-header { font-size:9px; letter-spacing:1px; padding:8px 8px 6px; }
     .highlight-box { flex-direction:column; align-items:flex-start; gap:10px; padding:12px 14px; }
@@ -269,33 +272,40 @@
     .nav-guide { flex-direction:column; gap:14px; padding:0 16px 60px; }
     .nav-guide-card { padding:20px 16px; }
     .service-row { gap:16px; }
+    .footer { padding:24px 16px 20px; margin-top:8px; }
     .footer .footer-links { flex-direction:column; align-items:center; gap:12px; }
+    .footer .footer-divider { margin:0 auto 20px; }
     .topnav { padding:0 14px; }
     .topnav .nav-brand { font-size:13px; letter-spacing:2px; }
     .container { padding:0 12px 60px; }
-    .hero-content { padding:0 16px 50px; }
     .contact-form-card input, .contact-form-card textarea { font-size:13px; padding:10px 12px; }
-    .accordion-header { font-size:14px; }
+    .contact-form-card textarea { min-height:100px; }
+    .accordion-header { font-size:14px; padding:13px 4px; }
     .accordion-body { font-size:13px; }
+    .accordion-body-inner { padding:4px 4px 14px; }
+    .back-to-top { bottom:24px; right:16px; width:38px; height:38px; font-size:15px; opacity:0.7; }
   }
   @media (max-width:375px) {
     .hero { height:380px; }
+    .hero-content { padding:56px 14px 44px; }
     .hero-content .brand-name { font-size:26px; letter-spacing:2px; }
     .hero-content .brand-tagline { font-size:9px; letter-spacing:3px; margin-bottom:16px; }
     .hero-content .hero-contact { padding:10px 16px; border-radius:14px; }
     .hero-copy-btn { padding:7px 12px; font-size:12px; }
     .hero-content .hero-contact .contact-id { font-size:14px; letter-spacing:1px; }
     .hero-content .hero-contact .contact-label { font-size:9px; letter-spacing:2px; }
-    .card { padding:16px 12px; border-radius:16px; }
+    .card { padding:16px 12px; border-radius:16px; margin-bottom:14px; }
     .card > .card-title { font-size:14px; margin-bottom:14px; }
     .table-row { padding:10px 6px; gap:4px; }
     .table-row .col-price { min-width:30px; font-size:12px; }
+    .table-row .col-price.col-price-wide { min-width:55px; font-size:10px; }
     .table-row .col-name { font-size:12px; }
     .scroll-row .scroll-card { width:150px; padding:12px 10px 10px; }
     .scroll-card .sc-name { font-size:13px; }
     .scroll-card .sc-price { font-size:16px; }
     .section-heading .section-text .section-title { font-size:17px; }
-    .back-to-top { bottom:16px; right:12px; width:36px; height:36px; font-size:15px; }
+    .footer { padding:20px 14px 16px; }
+    .back-to-top { bottom:20px; right:12px; width:34px; height:34px; font-size:14px; }
   }
 
   /* ====== INTERACTION ENHANCEMENTS ====== */
@@ -477,7 +487,7 @@
           <div class="table-row"><span class="col-name">开全图</span><span class="col-price">15R</span><span class="col-note"></span></div>
           <div class="table-row"><span class="col-name">小金人</span><span class="col-price">20R</span><span class="col-note">不包试炼和破晓季</span></div>
           <div class="table-row"><span class="col-name">献祭</span><span class="col-price">7R</span><span class="col-note"></span></div>
-          <div class="table-row"><span class="col-name">代币</span><span class="col-price">1.5R/天 或 15R/全物品</span><span class="col-note"></span></div>
+          <div class="table-row"><span class="col-name">代币</span><span class="col-price col-price-wide">1.5R/天 或 15R/全物品</span><span class="col-note"></span></div>
           <div class="table-row"><span class="col-name">烧红石</span><span class="col-price">2R/次</span><span class="col-note"></span></div>
         </div>
       </div>
@@ -580,7 +590,7 @@
     </section>
 
     <!-- ====== 给我留言 ====== -->
-    <section>
+    <section id="contactSection">
       <div class="section-heading reveal">
         <div class="section-icon">&#x2709;</div>
         <div class="section-text">
@@ -598,7 +608,7 @@
           </div>
           <div class="form-group">
             <label>联系方式 <span class="optional">（可选）</span></label>
-            <input type="text" name="contact" placeholder="微信 / QQ / 邮箱">
+            <input type="text" name="contact" placeholder="选填">
           </div>
           <div class="form-group">
             <label>留言内容 *</label>
@@ -799,6 +809,19 @@ function toggleAccordion(header) {
   }
   var btns=document.querySelectorAll('.hero-copy-btn, .form-submit, .footer-copy-btn, .theme-toggle, .scroll-arrows button, .back-to-top');
   btns.forEach(function(b){b.addEventListener('pointerdown',createRipple);});
+})();
+
+/* KEYBOARD SCROLL – ensure form inputs visible */
+(function(){
+  var inputs=document.querySelectorAll('#contactSection input, #contactSection textarea');
+  if(!inputs.length)return;
+  inputs.forEach(function(el){
+    el.addEventListener('focus',function(){
+      setTimeout(function(){
+        el.scrollIntoView({behavior:'smooth',block:'center'});
+      },350);
+    });
+  });
 })();
 </script>
 <button class="back-to-top" id="backToTop" aria-label="回到顶部" title="回到顶部">&#x2191;</button>
