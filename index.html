@@ -265,7 +265,7 @@
             <span class="copy-tag wechat">微信</span>
             <span class="copy-val">Pisces997x</span>
           </button>
-          <button class="hero-copy-btn qq" onclick="copyContact('39520092',this)" data-text="39520092">
+          <button class="hero-copy-btn qq" data-text="39520092">
             <span class="copy-tag qq">QQ</span>
             <span class="copy-val">39520092</span>
           </button>
@@ -500,7 +500,7 @@
           <span class="copy-tag wechat">微信</span>
           <span>Pisces997x</span>
         </button>
-        <button class="footer-copy-btn qq" onclick="copyContact('39520092',this)" data-text="39520092">
+        <button class="footer-copy-btn qq" data-text="39520092">
           <span class="copy-tag qq">QQ</span>
           <span>39520092</span>
         </button>
@@ -591,20 +591,26 @@
   });
 })();
 
-/* COPY CONTACT */
-function copyContact(text, btn) {
-  navigator.clipboard.writeText(text).then(function() {
-    btn.classList.add('copied');
-    setTimeout(function() { btn.classList.remove('copied'); }, 2000);
-  }).catch(function() {
-    var ta = document.createElement('textarea');
-    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-    document.body.appendChild(ta); ta.select();
-    document.execCommand('copy'); document.body.removeChild(ta);
-    btn.classList.add('copied');
-    setTimeout(function() { btn.classList.remove('copied'); }, 2000);
+/* COPY CONTACT — event delegation */
+(function() {
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.hero-copy-btn, .footer-copy-btn');
+    if (!btn) return;
+    var text = btn.getAttribute('data-text');
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(function() {
+      btn.classList.add('copied');
+      setTimeout(function() { btn.classList.remove('copied'); }, 2000);
+    }).catch(function() {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      btn.classList.add('copied');
+      setTimeout(function() { btn.classList.remove('copied'); }, 2000);
+    });
   });
-}
+})();
 
 /* ACCORDION */
 function toggleAccordion(header) {
