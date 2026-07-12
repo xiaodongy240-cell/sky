@@ -604,81 +604,6 @@
     background: linear-gradient(90deg, transparent, rgba(196,154,74,0.35), transparent);
     margin: 0 auto 44px;
   }
-  /* ========== FLOATING MUSIC BUTTON ========== */
-  #bgmFrame {
-    position: fixed;
-    width: 1px; height: 1px;
-    top: -10px; left: -10px;
-    opacity: 0; pointer-events: none;
-  }
-  .music-float {
-    position: fixed;
-    bottom: 32px; right: 28px;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
-  }
-  .mf-btn {
-    width: 44px; height: 44px;
-    border-radius: 50%;
-    border: 1px solid var(--border-gold);
-    background: rgba(255,252,246,0.85);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 3px 22px rgba(180,150,110,0.2);
-    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1),
-                box-shadow 0.35s, background 0.35s;
-    position: relative;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .mf-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 30px rgba(180,150,110,0.32);
-  }
-  .mf-icon {
-    font-size: 19px;
-    color: var(--gold-warm);
-    line-height: 1;
-    transition: transform 0.35s;
-  }
-  .mf-panel {
-    width: 330px;
-    background: var(--surface);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 16px;
-    padding: 10px 8px 6px;
-    opacity: 0;
-    transform: translateY(10px) scale(0.94);
-    pointer-events: none;
-    transition: opacity 0.32s cubic-bezier(0.4,0,0.2,1),
-                transform 0.32s cubic-bezier(0.4,0,0.2,1);
-  }
-  .mf-panel iframe {
-    display: block;
-    width: 100%;
-    height: 90px;
-    border: none;
-    border-radius: 10px;
-  }
-  .music-float.expanded .mf-panel {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    pointer-events: auto;
-  }
-  @media (max-width: 480px) {
-    .music-float { bottom: 20px; right: 16px; }
-    .mf-btn { width: 40px; height: 40px; }
-    .mf-icon { font-size: 17px; }
-    .mf-panel { width: 290px; padding: 8px 6px 4px; }
-    .mf-panel iframe { height: 90px; }
-  }
-
   /* ========== FOOTER ========== */
   .footer {
     text-align: center;
@@ -1386,18 +1311,6 @@
     </div>
   </section>
 
-  <!-- ====== 背景音乐 ====== -->
-  <div class="music-float" id="musicFloat">
-    <button class="mf-btn" id="mfBtn" title="音乐控制">
-      <span class="mf-icon">♪</span>
-    </button>
-    <div class="mf-panel" id="mfPanel">
-      <iframe frameborder="no" marginwidth="0" marginheight="0"
-        src="https://music.163.com/outchain/player?type=0&id=2180048146&auto=0&height=90">
-      </iframe>
-    </div>
-  </div>
-
   <!-- ====== Footer ====== -->
   <footer class="footer reveal">
     <div class="footer-divider"></div>
@@ -1556,22 +1469,6 @@ function copyContact(el) {
   }
 }
 
-
-/* ====== FLOATING MUSIC ====== */
-(function() {
-  var float = document.getElementById('musicFloat');
-  var btn = document.getElementById('mfBtn');
-  if (!float) return;
-
-  btn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    float.classList.toggle('expanded');
-  });
-
-  document.addEventListener('click', function() {
-    float.classList.remove('expanded');
-  });
-})();
 
 </script>
 </body>
