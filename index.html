@@ -606,6 +606,132 @@
     letter-spacing: 2px;
   }
 
+  /* ========== ACCORDION ========== */
+  .accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .acc-item {
+    background: rgba(250,245,235,0.45);
+    border: 1px solid rgba(180,160,130,0.12);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.35s, box-shadow 0.35s, background 0.35s;
+  }
+  .acc-item:hover {
+    border-color: rgba(196,154,74,0.2);
+    background: rgba(250,245,235,0.65);
+  }
+  .acc-item.active {
+    border-color: var(--border-gold);
+    background: rgba(250,245,235,0.7);
+    box-shadow: 0 2px 18px rgba(180,150,110,0.1);
+  }
+  .acc-header {
+    display: flex;
+    align-items: center;
+    padding: 13px 16px;
+    cursor: pointer;
+    user-select: none;
+    gap: 10px;
+    transition: background 0.25s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .acc-header:active {
+    background: rgba(196,154,74,0.04);
+  }
+  .acc-name {
+    font-weight: 600;
+    color: var(--text-bright);
+    font-size: 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .acc-meta {
+    font-size: 12px;
+    color: var(--text-dim);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .acc-price {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    color: var(--gold-warm);
+    font-size: 17px;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    margin-left: auto;
+  }
+  .acc-arrow {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    position: relative;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .acc-arrow::before,
+  .acc-arrow::after {
+    content: '';
+    position: absolute;
+    background: var(--gold-warm);
+    border-radius: 1px;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s;
+  }
+  .acc-arrow::before {
+    width: 8px;
+    height: 1.5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+  .acc-arrow::after {
+    width: 8px;
+    height: 1.5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .acc-item.active .acc-arrow::before {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  .acc-item.active .acc-arrow {
+    transform: rotate(180deg);
+  }
+  .acc-body {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s;
+  }
+  .acc-item.active .acc-body {
+    max-height: 200px;
+    opacity: 1;
+  }
+  .acc-detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 18px;
+    font-size: 13px;
+    color: var(--text);
+    border-top: 1px solid rgba(180,160,130,0.08);
+  }
+  .acc-detail-row:first-child {
+    border-top-color: rgba(196,154,74,0.12);
+  }
+  .acc-detail-row span:first-child {
+    color: var(--text-dim);
+  }
+  .acc-detail-row span:last-child {
+    color: var(--text-bright);
+    font-weight: 500;
+  }
+
   /* ========== RESPONSIVE ========== */
   @media (max-width: 768px) {
     .hero { height: 480px; min-height: auto; }
@@ -727,94 +853,268 @@
 
     <div class="card reveal">
       <div class="card-title">各季节先祖 <span class="title-meta">共 90 个 · 全包 98R</span></div>
-      <div class="scroll-row-wrapper" id="seasonScrollWrapper">
-        <div class="scroll-arrows">
-          <button id="seasonScrollLeft" aria-label="向左滚动">&#x2039;</button>
-          <button id="seasonScrollRight" aria-label="向右滚动">&#x203A;</button>
+      <div class="accordion" id="seasonAccordion">
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">感恩季</span>
+              <span class="acc-meta">6个先祖 · 4运光 2追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">8R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>6 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>4 运光 · 2 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span>普通</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">追光季</span>
+              <span class="acc-meta"><span class="tag tag-hard">高难度</span>6个先祖 · 5运光 1追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">11R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>6 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>5 运光 · 1 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span class="tag tag-hard">高难度</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">归属季</span>
+              <span class="acc-meta"><span class="tag tag-hard">高难度</span>6个先祖 · 2运光 4追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">9R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>6 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>2 运光 · 4 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span class="tag tag-hard">高难度</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">音韵季</span>
+              <span class="acc-meta"><span class="tag tag-hard">高难度</span>6个先祖 · 3运光 3追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">9R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>6 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>3 运光 · 3 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span class="tag tag-hard">高难度</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">魔法季</span>
+              <span class="acc-meta">6个先祖 · 5运光 1追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">9R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>6 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>5 运光 · 1 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span>普通</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">圣岛季</span>
+              <span class="acc-meta"><span class="tag tag-hard">高难度</span>6个先祖 · 2运光 4追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">9R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>6 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>2 运光 · 4 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span class="tag tag-hard">高难度</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">预言季</span>
+              <span class="acc-meta">4个先祖 · 4追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">3R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>4 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>4 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span>普通</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">梦想季</span>
+              <span class="acc-meta">4个先祖 · 1运光 3追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">4R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>4 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>1 运光 · 3 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span>普通</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">集结季</span>
+              <span class="acc-meta">6个先祖 · 6追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">5R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>6 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>6 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span>普通</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">小王子季</span>
+              <span class="acc-meta">6个先祖 · 2运光 4追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">6R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>6 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>2 运光 · 4 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span>普通</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">风行季</span>
+              <span class="acc-meta">4个先祖 · 4追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">3R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>4 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>4 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span>普通</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">潜海季</span>
+              <span class="acc-meta">4个先祖 · 4追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">3R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>4 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>4 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span>普通</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">表演季</span>
+              <span class="acc-meta">4个先祖 · 4追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">3R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>4 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>4 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span>普通</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">追忆季</span>
+              <span class="acc-meta">4个先祖 · 4追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">3R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>4 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>4 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span>普通</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">夜行季</span>
+              <span class="acc-meta">4个先祖 · 4追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">3R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>4 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>4 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span>普通</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">拾光季</span>
+              <span class="acc-meta">4个先祖 · 4追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">3R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>4 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>4 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span>普通</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">九色鹿季</span>
+              <span class="acc-meta">4个先祖 · 4追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">3R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>4 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>4 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span>普通</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">姆明季</span>
+              <span class="acc-meta">1个先祖 · 1任务</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">2R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>1 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>1 任务</span></div>
+              <div class="acc-detail-row"><span>难度</span><span>普通</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">青鸟季</span>
+              <span class="acc-meta">4个先祖 · 4追光</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">3R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>4 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>4 追光</span></div>
+              <div class="acc-detail-row"><span>难度</span><span>普通</span></div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">
+              <span class="acc-name">迁徙季</span>
+              <span class="acc-meta">1个先祖 · 1叫声</span>
+              <span class="acc-arrow"></span>
+              <span class="acc-price">1R</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-detail-row"><span>先祖数量</span><span>1 个</span></div>
+              <div class="acc-detail-row"><span>类型</span><span>1 叫声</span></div>
+              <div class="acc-detail-row"><span>难度</span><span>普通</span></div>
+            </div>
+          </div>
         </div>
-        <div class="scroll-row" id="seasonScroll">
-          <div class="scroll-card">
-            <div><span class="sc-name">感恩季</span><span class="sc-detail"> 6个 (4运光2追光)</span></div>
-            <span class="sc-price">8R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">追光季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个 (5运光1追光)</span></div>
-            <span class="sc-price">11R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">归属季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个 (2运光4追光)</span></div>
-            <span class="sc-price">9R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">音韵季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个 (3运光3追光)</span></div>
-            <span class="sc-price">9R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">魔法季</span><span class="sc-detail"> 6个 (5运光1追光)</span></div>
-            <span class="sc-price">9R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">圣岛季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个 (2运光4追光)</span></div>
-            <span class="sc-price">9R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">预言季</span><span class="sc-detail"> 4个 (4追光)</span></div>
-            <span class="sc-price">3R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">梦想季</span><span class="sc-detail"> 4个 (1运光3追光)</span></div>
-            <span class="sc-price">4R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">集结季</span><span class="sc-detail"> 6个 (6追光)</span></div>
-            <span class="sc-price">5R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">小王子季</span><span class="sc-detail"> 6个 (2运光4追光)</span></div>
-            <span class="sc-price">6R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">风行季</span><span class="sc-detail"> 4个 (4追光)</span></div>
-            <span class="sc-price">3R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">潜海季</span><span class="sc-detail"> 4个 (4追光)</span></div>
-            <span class="sc-price">3R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">表演季</span><span class="sc-detail"> 4个 (4追光)</span></div>
-            <span class="sc-price">3R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">追忆季</span><span class="sc-detail"> 4个 (4追光)</span></div>
-            <span class="sc-price">3R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">夜行季</span><span class="sc-detail"> 4个 (4追光)</span></div>
-            <span class="sc-price">3R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">拾光季</span><span class="sc-detail"> 4个 (4追光)</span></div>
-            <span class="sc-price">3R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">九色鹿季</span><span class="sc-detail"> 4个 (4追光)</span></div>
-            <span class="sc-price">3R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">姆明季</span><span class="sc-detail"> 1个 (1任务)</span></div>
-            <span class="sc-price">2R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">青鸟季</span><span class="sc-detail"> 4个 (4追光)</span></div>
-            <span class="sc-price">3R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">迁徙季</span><span class="sc-detail"> 1个 (1叫声)</span></div>
-            <span class="sc-price">1R</span>
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="highlight-box reveal">
@@ -1022,26 +1322,29 @@
   reveals.forEach(function(el) { observer.observe(el); });
 })();
 
-/* ====== HORIZONTAL SCROLL ====== */
+/* ====== ACCORDION ====== */
 (function() {
-  var row = document.getElementById('seasonScroll');
-  if (!row) return;
-  var btnLeft = document.getElementById('seasonScrollLeft');
-  var btnRight = document.getElementById('seasonScrollRight');
-  var amount = 210;
+  var accordion = document.getElementById('seasonAccordion');
+  if (!accordion) return;
+  var items = accordion.querySelectorAll('.acc-item');
+  var activeItem = null;
 
-  btnLeft.addEventListener('click', function() { row.scrollBy({ left: -amount, behavior: 'smooth' }); });
-  btnRight.addEventListener('click', function() { row.scrollBy({ left: amount, behavior: 'smooth' }); });
-
-  function check() {
-    var overflow = row.scrollWidth > row.clientWidth + 2;
-    btnLeft.style.opacity = overflow ? '1' : '0';
-    btnRight.style.opacity = overflow ? '1' : '0';
-    btnLeft.style.pointerEvents = overflow ? 'auto' : 'none';
-    btnRight.style.pointerEvents = overflow ? 'auto' : 'none';
-  }
-  check();
-  window.addEventListener('resize', check);
+  items.forEach(function(item) {
+    var header = item.querySelector('.acc-header');
+    header.addEventListener('click', function() {
+      if (activeItem === item) {
+        // 点击已展开的 → 收起
+        item.classList.remove('active');
+        activeItem = null;
+      } else {
+        // 收起当前展开的
+        if (activeItem) activeItem.classList.remove('active');
+        // 展开新项
+        item.classList.add('active');
+        activeItem = item;
+      }
+    });
+  });
 })();
 </script>
 </body>
