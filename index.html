@@ -230,20 +230,8 @@
 
   <nav class="topnav">
     <a href="index.html" class="nav-brand">小羊代肝</a>
-    <div class="nav-links">
-      <a href="index.html" class="active">首页</a>
-      <a href="about.html">关于</a>
-      <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
-    </div>
-    <button class="hamburger" id="hamburger" aria-label="菜单">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
   </nav>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="index.html" class="active">首页</a>
-    <a href="pricing.html">价格</a>
-    <a href="about.html">关于</a>
-  </div>
 
   <!-- ====== HERO ====== -->
   <section class="hero" id="heroCarousel">
@@ -406,6 +394,44 @@
       </div>
     </section>
 
+    <!-- ====== FAQ ====== -->
+    <section>
+      <div class="section-heading reveal">
+        <div class="section-icon">&#x2753;</div>
+        <div class="section-text">
+          <div class="section-overline">FAQ</div>
+          <div class="section-title">常见问题</div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">一般多久完成代跑？ <span class="acc-icon">&#x25BC;</span></div>
+          <div class="accordion-body"><div class="accordion-body-inner">全图代跑通常在 1.5～2 小时内完成。单图 20～40 分钟。具体时间视当天任务和网络情况略有浮动，完成后会第一时间截图通知你。</div></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">上号代跑安全吗？ <span class="acc-icon">&#x25BC;</span></div>
+          <div class="accordion-body"><div class="accordion-body-inner">安全是我们的首要原则。代跑期间不会动你的蜡烛、爱心、好友等资源；登录后只操作代跑相关内容，完成即下线。建议使用扫码登录或临时密码，代跑完成后修改密码更安心。</div></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">需要提供账号密码吗？ <span class="acc-icon">&#x25BC;</span></div>
+          <div class="accordion-body"><div class="accordion-body-inner">推荐使用扫码登录方式，无需提供密码。如果不方便扫码，也可以设置临时密码，代跑完成后你自行改回即可。我们绝不保存任何登录凭据。</div></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">支持退款吗？ <span class="acc-icon">&#x25BC;</span></div>
+          <div class="accordion-body"><div class="accordion-body-inner">支持。如果因我方原因未完成代跑（如超时未开始、中途断连无法继续等），可全额退款或协商改期。已完成的代跑不支持退款，请在下单前确认服务内容。</div></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">可以指定时间代跑吗？ <span class="acc-icon">&#x25BC;</span></div>
+          <div class="accordion-body"><div class="accordion-body-inner">可以。下单时说明你希望的时间段，我会尽量安排。建议提前一天预约以确保排期，具体时间请联系确认。</div></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">代跑期间我能上号吗？ <span class="acc-icon">&#x25BC;</span></div>
+          <div class="accordion-body"><div class="accordion-body-inner">建议代跑期间不要登录，否则会导致代跑被顶下线，影响进度。如需紧急上号，请提前联系我暂停代跑。</div></div>
+        </div>
+      </div>
+    </section>
+
     <!-- ====== 给我留言 ====== -->
     <section>
       <div class="section-heading reveal">
@@ -509,12 +535,6 @@
     toggle.textContent=nxt==='dark'?'☀️':'🌙';
     localStorage.setItem('sky-theme',nxt);
   });
-})();
-
-/* HAMBURGER */
-(function() {
-  var h=document.getElementById('hamburger'), m=document.getElementById('mobileMenu');
-  if(h&&m) h.addEventListener('click',function(){h.classList.toggle('open');m.classList.toggle('show');});
 })();
 
 /* SCROLL REVEAL */
