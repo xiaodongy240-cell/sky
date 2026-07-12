@@ -593,21 +593,34 @@
 
 /* COPY CONTACT — event delegation */
 (function() {
-  document.addEventListener('click', function(e) {
-    var btn = e.target.closest('.hero-copy-btn, .footer-copy-btn');
-    if (!btn) return;
+  function doCopy(btn) {
     var text = btn.getAttribute('data-text');
     if (!text) return;
-    navigator.clipboard.writeText(text).then(function() {
+    var done = function() {
       btn.classList.add('copied');
       setTimeout(function() { btn.classList.remove('copied'); }, 2000);
-    }).catch(function() {
+    };
+    try {
+      navigator.clipboard.writeText(text).then(done).catch(function() {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.style.cssText = 'position:fixed;opacity:0;';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
+        done();
+      });
+    } catch (ex) {
       var ta = document.createElement('textarea');
-      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      ta.value = text; ta.style.cssText = 'position:fixed;opacity:0;';
       document.body.appendChild(ta); ta.select();
       document.execCommand('copy'); document.body.removeChild(ta);
-      btn.classList.add('copied');
-      setTimeout(function() { btn.classList.remove('copied'); }, 2000);
+      done();
+    }
+  }
+  var btns = document.querySelectorAll('.hero-copy-btn, .footer-copy-btn');
+  btns.forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      doCopy(btn);
     });
   });
 })();
