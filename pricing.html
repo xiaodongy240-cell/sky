@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>价格 · 小羊代肝 Sky</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f3ea; --bg2: #f0ebe0;
+    --card: rgba(255,252,246,0.85); --card-hover: rgba(255,252,246,0.96);
+    --card-alt: rgba(250,245,235,0.72);
+    --nav-bg: rgba(247,243,234,0.92); --nav-border: rgba(180,160,130,0.25);
+    --gold: #b8862d; --gold-light: #c49a4a; --gold-bright: #d9bb72; --gold-warm: #a07028;
+    --text: #5a5040; --text-dim: #9b9180; --text-bright: #2a2018;
+    --accent: #c49a4a;
+    --border: rgba(180,160,130,0.22); --border-gold: rgba(196,154,74,0.35);
+    --tag-bg: rgba(196,154,74,0.15); --tag-text: #a07830;
+    --danger: #c47070;
+    --shadow-card: 0 4px 32px rgba(180,150,110,0.18), 0 1px 3px rgba(160,130,90,0.1);
+    --shadow-hover: 0 8px 48px rgba(180,150,110,0.25), 0 2px 6px rgba(160,130,90,0.14);
+    --radius: 26px; --radius-sm: 18px;
+    --bg-gradient: linear-gradient(175deg, #f7f3ea 0%, #efe8d8 25%, #f2eddf 50%, #ece4d4 75%, #f5f0e5 100%);
+  }
+  [data-theme="dark"] {
+    --bg: #050609; --bg2: #0a0c12;
+    --card: rgba(14,16,24,0.6); --card-hover: rgba(20,23,32,0.78);
+    --card-alt: rgba(16,18,26,0.5);
+    --nav-bg: rgba(5,6,9,0.88); --nav-border: rgba(255,255,255,0.06);
+    --gold: #bf9b44; --gold-light: #d6bf7a; --gold-bright: #e2cd88; --gold-warm: #c49a4a;
+    --text: #a0a2b0; --text-dim: #5c5e6c; --text-bright: #e0e0ea;
+    --accent: #b08d38;
+    --border: rgba(255,255,255,0.05); --border-gold: rgba(191,155,68,0.15);
+    --tag-bg: rgba(191,155,68,0.1); --tag-text: #c4a24a;
+    --danger: #c85858;
+    --shadow-card: 0 4px 32px rgba(0,0,0,0.45), 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-hover: 0 12px 48px rgba(0,0,0,0.55), 0 0 80px rgba(191,155,68,0.03);
+    --bg-gradient: radial-gradient(ellipse 1100px 600px at 50% 0%, rgba(191,155,68,0.055) 0%, transparent 70%);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg-gradient); background-attachment: fixed;
+    color: var(--text);
+    font-family: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", -apple-system, sans-serif;
+    font-weight: 400; line-height: 1.8; min-height: 100vh;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden; transition: background 0.4s, color 0.4s;
+    padding-top: 56px;
+  }
+  /* NAV */
+  .topnav { position:fixed; top:0; left:0; right:0; z-index:200; background:var(--nav-bg); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid var(--nav-border); display:flex; align-items:center; justify-content:space-between; padding:0 28px; height:56px; transition:background 0.4s,border-color 0.4s; }
+  .topnav .nav-brand { font-family:"Cinzel",serif; font-size:15px; font-weight:700; color:var(--gold); letter-spacing:3px; text-decoration:none; }
+  .topnav .nav-links { display:flex; align-items:center; gap:22px; }
+  .topnav .nav-links a { font-family:"Inter",sans-serif; font-size:13px; color:var(--text-dim); text-decoration:none; letter-spacing:1px; font-weight:500; transition:color 0.3s; position:relative; }
+  .topnav .nav-links a:hover, .topnav .nav-links a.active { color:var(--gold-light); }
+  .topnav .nav-links a.active::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:2px; background:var(--gold); border-radius:1px; }
+  .theme-toggle { width:36px; height:36px; border-radius:50%; border:1px solid var(--border-gold); background:transparent; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; transition:background 0.3s,border-color 0.3s; color:var(--text-bright); -webkit-tap-highlight-color:transparent; margin-left:8px; }
+  .theme-toggle:hover { background:rgba(196,154,74,0.1); border-color:var(--gold); }
+  .hamburger { display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:5px; padding:4px; -webkit-tap-highlight-color:transparent; }
+  .hamburger span { display:block; width:22px; height:2px; background:var(--text-bright); border-radius:1px; transition:transform 0.3s,opacity 0.3s; }
+  .hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+  .hamburger.open span:nth-child(2) { opacity:0; }
+  .hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+  .mobile-menu { display:none; position:fixed; top:56px; left:0; right:0; background:var(--nav-bg); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid var(--nav-border); flex-direction:column; padding:12px 28px 16px; gap:10px; z-index:199; }
+  .mobile-menu.show { display:flex; }
+  .mobile-menu a { font-family:"Inter",sans-serif; font-size:15px; color:var(--text); text-decoration:none; padding:8px 0; letter-spacing:1px; font-weight:500; border-bottom:1px solid var(--border); }
+  .mobile-menu a:last-child { border-bottom:none; }
+  @media (max-width:640px) { .topnav .nav-links { display:none; } .hamburger { display:flex; } .topnav { padding:0 18px; } }
+
+  /* CONTAINER */
+  .container { max-width:880px; margin:0 auto; padding:40px 24px 100px; position:relative; z-index:1; }
+  section { margin-bottom:80px; }
+  .section-heading { display:flex; align-items:center; gap:16px; margin-bottom:36px; }
+  .section-heading .section-icon { width:44px; height:44px; border-radius:14px; background:rgba(196,154,74,0.1); border:1px solid var(--border-gold); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+  .section-heading .section-text .section-overline { font-family:"Inter",sans-serif; font-size:10px; color:var(--gold-warm); letter-spacing:3px; text-transform:uppercase; font-weight:600; margin-bottom:2px; }
+  .section-heading .section-text .section-title { font-family:"Cinzel",serif; font-size:28px; font-weight:700; color:var(--text-bright); letter-spacing:3px; }
+  .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.9s cubic-bezier(0.22,0.61,0.36,1),transform 0.9s cubic-bezier(0.22,0.61,0.36,1); will-change:transform,opacity; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  .card { background:var(--card); backdrop-filter:blur(40px); -webkit-backdrop-filter:blur(40px); border:1px solid var(--border); border-radius:var(--radius); padding:32px 32px 28px; margin-bottom:18px; transition:border-color 0.45s,box-shadow 0.45s,transform 0.45s,background 0.45s; position:relative; overflow:hidden; }
+  .card:hover { border-color:rgba(255,255,255,0.1); background:var(--card-hover); box-shadow:var(--shadow-hover); transform:translateY(-2px); }
+  .card > .card-title { font-family:"Cinzel",serif; font-size:18px; font-weight:600; color:var(--text-bright); margin-bottom:24px; letter-spacing:2px; display:flex; align-items:baseline; gap:10px; }
+  .card > .card-title .title-meta { font-family:"Inter",sans-serif; font-size:12px; color:var(--gold-warm); font-weight:400; letter-spacing:0.5px; }
+
+  /* TABLE */
+  .table-rows { border-radius:var(--radius-sm); overflow:hidden; background:rgba(255,255,255,0.01); }
+  .table-row { display:flex; align-items:center; padding:14px 18px; gap:14px; border-bottom:1px solid rgba(255,255,255,0.025); transition:background 0.25s; }
+  .table-row:last-child { border-bottom:none; }
+  .table-row:hover { background:rgba(255,255,255,0.015); }
+  .table-row.table-row-header { padding:11px 18px 9px; border-bottom:1px solid var(--border-gold); font-family:"Inter",sans-serif; font-size:10px; color:var(--text-dim); letter-spacing:2px; font-weight:600; text-transform:uppercase; background:transparent; }
+  .table-row.table-row-header:hover { background:transparent; }
+  .table-row .col-name { flex:1; font-weight:500; color:var(--text-bright); font-size:14px; min-width:0; }
+  .table-row .col-price { font-family:"Cinzel",serif; font-weight:700; color:var(--gold); white-space:nowrap; font-size:16px; text-align:right; min-width:48px; letter-spacing:1px; }
+  .table-row .col-note { font-size:12px; color:var(--text-dim); flex:0 0 140px; text-align:right; font-style:italic; }
+  .table-row .col-count { font-size:13px; color:var(--text); text-align:right; min-width:50px; }
+
+  /* HIGHLIGHT */
+  .highlight-box { margin-top:22px; padding:18px 24px; border-radius:var(--radius-sm); background:rgba(196,154,74,0.06); border:1px solid var(--border-gold); display:flex; flex-wrap:wrap; gap:24px; align-items:center; }
+  .highlight-box .hl-item { font-size:14px; color:var(--text-bright); white-space:nowrap; }
+  .highlight-box .hl-item span { font-family:"Cinzel",serif; color:var(--gold); font-weight:700; font-size:18px; letter-spacing:1px; }
+  .tag { display:inline-block; background:var(--tag-bg); color:var(--tag-text); font-family:"Inter",sans-serif; font-size:10px; padding:2px 9px; border-radius:5px; font-weight:600; letter-spacing:0.5px; white-space:nowrap; }
+  .tag-hard { background:rgba(200,88,88,0.1); color:var(--danger); border:1px solid rgba(200,88,88,0.12); }
+
+  /* SCROLL ROW */
+  .scroll-row-wrapper { position:relative; margin:0 -24px; padding:0 24px; }
+  .scroll-row { display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding:8px 0 16px; scroll-behavior:smooth; }
+  .scroll-row::-webkit-scrollbar { display:none; }
+  .scroll-row .scroll-card { flex:0 0 auto; width:200px; scroll-snap-align:start; background:var(--card-alt); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1px solid var(--border); border-radius:var(--radius-sm); padding:18px 16px 16px; display:flex; flex-direction:column; justify-content:space-between; gap:10px; transition:border-color 0.35s,box-shadow 0.35s,transform 0.35s,background 0.35s; }
+  .scroll-row .scroll-card:hover { border-color:rgba(255,255,255,0.08); background:var(--card-hover); box-shadow:var(--shadow-hover); transform:translateY(-2px); }
+  .scroll-card .sc-name { font-weight:600; color:var(--text-bright); font-size:15px; line-height:1.3; }
+  .scroll-card .sc-detail { font-size:11px; color:var(--text-dim); }
+  .scroll-card .sc-price { font-family:"Cinzel",serif; font-weight:700; color:var(--gold); font-size:22px; letter-spacing:1px; align-self:flex-end; }
+  .scroll-arrows { position:absolute; top:50%; left:0; right:0; transform:translateY(-50%); pointer-events:none; z-index:2; display:flex; justify-content:space-between; padding:0 8px; }
+  .scroll-arrows button { pointer-events:auto; width:40px; height:40px; border-radius:50%; border:1px solid rgba(255,255,255,0.1); background:rgba(14,16,24,0.75); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); color:var(--text-bright); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.3s,border-color 0.3s,transform 0.3s; }
+  .scroll-arrows button:hover { background:rgba(24,27,37,0.9); border-color:rgba(255,255,255,0.18); transform:scale(1.08); }
+
+  /* ACCORDION */
+  .accordion-item { border-bottom:1px solid var(--border); }
+  .accordion-item:last-child { border-bottom:none; }
+  .accordion-header { display:flex; align-items:center; justify-content:space-between; padding:16px 0; cursor:pointer; font-weight:600; color:var(--text-bright); font-size:15px; transition:color 0.3s; -webkit-tap-highlight-color:transparent; }
+  .accordion-header:hover { color:var(--gold-light); }
+  .accordion-header .acc-icon { font-size:12px; transition:transform 0.3s; color:var(--gold); }
+  .accordion-item.open .acc-icon { transform:rotate(180deg); }
+  .accordion-body { max-height:0; overflow:hidden; transition:max-height 0.4s ease; font-size:14px; color:var(--text); line-height:1.8; }
+  .accordion-body-inner { padding:0 0 18px; }
+
+  /* CALCULATOR */
+  .calculator-total {
+    margin-top:20px; padding:18px 24px;
+    border-radius:var(--radius-sm);
+    background:rgba(196,154,74,0.08);
+    border:1px solid var(--border-gold);
+    display:flex; align-items:center; justify-content:space-between;
+    transition:background 0.4s;
+  }
+  .calculator-total .calc-label {
+    font-family:"Inter",sans-serif; font-size:14px;
+    color:var(--text-bright); font-weight:600; letter-spacing:1px;
+  }
+  .calculator-total .calc-price {
+    font-family:"Cinzel",serif; font-size:28px;
+    font-weight:700; color:var(--gold); letter-spacing:2px;
+  }
+  .calc-checkbox {
+    display:flex; align-items:center; gap:10px;
+    padding:8px 14px; border-radius:10px;
+    cursor:pointer; transition:background 0.25s;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .calc-checkbox:hover { background:rgba(255,255,255,0.03); }
+  .calc-checkbox input[type="checkbox"] {
+    width:18px; height:18px; accent-color:var(--gold); cursor:pointer; flex-shrink:0;
+  }
+  .calc-checkbox .calc-name { flex:1; font-size:14px; color:var(--text-bright); }
+  .calc-checkbox .calc-price-tag {
+    font-family:"Cinzel",serif; font-size:15px;
+    color:var(--gold); font-weight:600;
+    letter-spacing:1px; min-width:45px; text-align:right;
+  }
+  .calc-section-title {
+    font-family:"Cinzel",serif; font-size:14px; font-weight:600;
+    color:var(--gold-warm); letter-spacing:2px;
+    margin:18px 0 8px; padding-bottom:6px;
+    border-bottom:1px solid var(--border-gold);
+  }
+
+  /* FOOTER */
+  .footer { text-align:center; padding:56px 20px 36px; margin-top:40px; position:relative; z-index:1; }
+  .footer .footer-divider { width:36px; height:1px; background:rgba(196,154,74,0.3); margin:0 auto 30px; }
+  .footer .footer-brand { font-family:"Cinzel",serif; font-size:16px; font-weight:600; color:var(--gold-warm); letter-spacing:4px; margin-bottom:10px; }
+  .footer .footer-slogan { font-family:"Inter",sans-serif; font-size:12px; color:var(--text-dim); letter-spacing:2px; font-weight:300; margin-bottom:24px; }
+  .footer .footer-links { display:flex; justify-content:center; gap:36px; flex-wrap:wrap; }
+  .footer .footer-links span { font-family:"Inter",sans-serif; font-size:12px; color:var(--text-dim); text-decoration:none; letter-spacing:1px; transition:color 0.3s; }
+  .footer .footer-copy { margin-top:28px; font-family:"Inter",sans-serif; font-size:10px; color:rgba(92,94,108,0.5); letter-spacing:2px; }
+
+  @media (max-width:768px) {
+    section { margin-bottom:60px; }
+    .section-heading .section-text .section-title { font-size:22px; letter-spacing:2px; }
+    .card { padding:22px 18px; border-radius:20px; }
+    .card > .card-title { font-size:16px; margin-bottom:18px; }
+    .table-row { padding:12px 14px; gap:10px; }
+    .table-row .col-name { font-size:13px; }
+    .table-row .col-price { font-size:14px; min-width:40px; }
+    .table-row .col-note { flex:0 0 105px; font-size:11px; }
+    .table-row .col-count { font-size:12px; min-width:40px; }
+    .highlight-box { padding:14px 16px; gap:16px; }
+    .highlight-box .hl-item { font-size:13px; }
+    .highlight-box .hl-item span { font-size:16px; }
+    .scroll-row .scroll-card { width:170px; }
+    .scroll-card .sc-price { font-size:19px; }
+    .container { padding:30px 16px 80px; }
+    .scroll-row-wrapper { margin:0 -16px; padding:0 16px; }
+    .footer { padding:36px 16px 26px; }
+    .footer .footer-links { gap:18px; }
+  }
+  @media (max-width:480px) {
+    section { margin-bottom:50px; }
+    .card { padding:18px 14px; border-radius:16px; }
+    .card > .card-title { font-size:15px; }
+    .section-heading .section-text .section-title { font-size:19px; }
+    .section-heading .section-icon { width:38px; height:38px; font-size:18px; }
+    .table-row { padding:10px 12px; gap:6px; flex-wrap:wrap; }
+    .table-row.table-row-header { font-size:9px; padding:8px 12px 6px; letter-spacing:1px; }
+    .table-row .col-note { flex:1 1 100%; text-align:left; padding-top:3px; border-top:1px solid rgba(255,255,255,0.02); margin-top:4px; }
+    .highlight-box { gap:10px; }
+    .highlight-box .hl-item span { font-size:14px; }
+    .scroll-row .scroll-card { width:155px; padding:14px 12px 12px; }
+    .scroll-card .sc-name { font-size:13px; }
+    .scroll-card .sc-price { font-size:17px; }
+    .calculator-total .calc-price { font-size:22px; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="topnav">
+    <a href="index.html" class="nav-brand">小羊代肝</a>
+    <div class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="pricing.html" class="active">价格</a>
+      <a href="about.html">关于</a>
+      <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">首页</a>
+    <a href="pricing.html">价格</a>
+    <a href="about.html">关于</a>
+  </div>
+
+<div class="container">
+
+  <!-- ====== 代跑服务 ====== -->
+  <section>
+    <div class="section-heading reveal">
+      <div class="section-icon">&#x1F3C3;</div>
+      <div class="section-text">
+        <div class="section-overline">Services</div>
+        <div class="section-title">代跑服务</div>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-title">六大图跑图</div>
+      <div class="table-rows">
+        <div class="table-row table-row-header"><span class="col-name">地图</span><span class="col-price">一天</span><span class="col-price">包周</span><span class="col-price">包月</span><span class="col-note">备注</span></div>
+        <div class="table-row"><span class="col-name">晨岛</span><span class="col-price">1R</span><span class="col-price">5R</span><span class="col-price">20R</span><span class="col-note">不包试炼</span></div>
+        <div class="table-row"><span class="col-name">云野</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note"></span></div>
+        <div class="table-row"><span class="col-name">雨林</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note">不包风行网道</span></div>
+        <div class="table-row"><span class="col-name">霞谷</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note">不包雪隐峰赛道</span></div>
+        <div class="table-row"><span class="col-name">暮土</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note">大花随缘</span></div>
+        <div class="table-row"><span class="col-name">禁阁</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note"></span></div>
+      </div>
+      <div class="highlight-box">
+        <div class="hl-item">全图一天 <span>12R</span></div>
+        <div class="hl-item">全图包周 <span>84R</span></div>
+        <div class="hl-item">全图包月 <span>360R</span></div>
+        <span class="tag">全图包月送每日任务</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-title">每日任务</div>
+      <div class="table-rows">
+        <div class="table-row table-row-header"><span class="col-name">项目</span><span class="col-price">一天</span><span class="col-price">包周</span><span class="col-price">包月</span></div>
+        <div class="table-row"><span class="col-name">每日任务</span><span class="col-price">1R</span><span class="col-price">7R</span><span class="col-price">27R</span></div>
+        <div class="table-row"><span class="col-name">每日任务 + 季蜡</span><span class="col-price">2R</span><span class="col-price">14R</span><span class="col-price">50R</span></div>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-title">&#x1F525; 蜡烛套餐</div>
+      <div class="table-rows">
+        <div class="table-row table-row-header"><span class="col-name">数量</span><span class="col-price">一天</span><span class="col-price">包周</span><span class="col-price">包月</span><span class="col-note">备注</span></div>
+        <div class="table-row"><span class="col-name">5 根</span><span class="col-price">2R</span><span class="col-price">12R</span><span class="col-price">50R</span><span class="col-note"></span></div>
+        <div class="table-row"><span class="col-name">10 根</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">80R</span><span class="col-note"></span></div>
+        <div class="table-row"><span class="col-name">15 根</span><span class="col-price">5R</span><span class="col-price">31R</span><span class="col-price">140R</span><span class="col-note"></span></div>
+        <div class="table-row"><span class="col-name">20 根</span><span class="col-price">10R</span><span class="col-price">60R</span><span class="col-price">270R</span><span class="col-note">包月送每日任务 15 次</span></div>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-title">&#x1F341; 季节包毕业 <span class="title-meta">（季卡自买）</span></div>
+      <div class="highlight-box" style="margin-top:0;">
+        <div class="hl-item">有卡包毕业 <span>100R</span></div>
+        <div class="hl-item">无卡包毕业 <span>110R</span></div>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-title">&#x2600;&#xFE0F; 其他服务</div>
+      <div class="table-rows">
+        <div class="table-row table-row-header"><span class="col-name">项目</span><span class="col-price">价格</span><span class="col-note">备注</span></div>
+        <div class="table-row"><span class="col-name">开全图</span><span class="col-price">15R</span><span class="col-note"></span></div>
+        <div class="table-row"><span class="col-name">小金人</span><span class="col-price">20R</span><span class="col-note">不包试炼和破晓季</span></div>
+        <div class="table-row"><span class="col-name">献祭</span><span class="col-price">7R</span><span class="col-note"></span></div>
+        <div class="table-row"><span class="col-name">代币</span><span class="col-price">1.5R/天 或 15R/全物品</span><span class="col-note"></span></div>
+        <div class="table-row"><span class="col-name">烧红石</span><span class="col-price">2R/次</span><span class="col-note"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 代找先祖（手风琴） ====== -->
+  <section>
+    <div class="section-heading reveal">
+      <div class="section-icon">&#x1F50D;</div>
+      <div class="section-text">
+        <div class="section-overline">Ancestors</div>
+        <div class="section-title">代找先祖</div>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">全图套餐 <span class="acc-icon">&#x25BC;</span></div>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <div class="table-rows">
+            <div class="table-row table-row-header"><span class="col-name">项目</span><span class="col-count">数量</span><span class="col-price">价格</span></div>
+            <div class="table-row"><span class="col-name">全图先祖</span><span class="col-count">127 个</span><span class="col-price">150R</span></div>
+            <div class="table-row"><span class="col-name">全图常驻先祖</span><span class="col-count">37 个</span><span class="col-price">40R</span></div>
+          </div>
+        </div></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">各季节先祖 <span class="title-meta" style="font-family:Inter,sans-serif;font-size:12px;color:var(--gold-warm);">共 90 个 · 全包 129R</span> <span class="acc-icon">&#x25BC;</span></div>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <div class="scroll-row-wrapper" id="seasonScrollWrapper">
+            <div class="scroll-arrows"><button id="seasonScrollLeft" aria-label="向左">&#x2039;</button><button id="seasonScrollRight" aria-label="向右">&#x203A;</button></div>
+            <div class="scroll-row" id="seasonScroll">
+              <div class="scroll-card"><div><span class="sc-name">感恩季</span><span class="sc-detail"> 6个</span></div><span class="sc-price">10R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">追光季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个</span></div><span class="sc-price">14R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">归属季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个</span></div><span class="sc-price">12R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">音韵季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个</span></div><span class="sc-price">12R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">魔法季</span><span class="sc-detail"> 6个</span></div><span class="sc-price">11R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">圣岛季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个</span></div><span class="sc-price">12R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">预言季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">梦想季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">5R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">集结季</span><span class="sc-detail"> 6个</span></div><span class="sc-price">6R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">小王子季</span><span class="sc-detail"> 6个</span></div><span class="sc-price">8R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">风行季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">潜海季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">表演季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">追忆季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">夜行季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">拾光季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">九色鹿季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">姆明季</span><span class="sc-detail"> 1个</span></div><span class="sc-price">2R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">青鸟季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+              <div class="scroll-card"><div><span class="sc-name">迁徙季</span><span class="sc-detail"> 1个</span></div><span class="sc-price">1R</span></div>
+            </div>
+          </div>
+          <div class="highlight-box" style="margin-top:16px;">
+            <div class="hl-item">追光先祖 <span>1R / 个</span></div>
+            <div class="hl-item">运光先祖 <span>2R / 个</span></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 价格计算器 ====== -->
+  <section>
+    <div class="section-heading reveal">
+      <div class="section-icon">&#x1F4E0;</div>
+      <div class="section-text">
+        <div class="section-overline">Calculator</div>
+        <div class="section-title">价格计算器</div>
+      </div>
+    </div>
+
+    <div class="card reveal" id="calculatorCard">
+      <div class="card-title">勾选服务 · 自动计算</div>
+
+      <div class="calc-section-title">跑图服务</div>
+      <label class="calc-checkbox"><input type="checkbox" data-price="1"> <span class="calc-name">晨岛</span><span class="calc-price-tag">1R</span></label>
+      <label class="calc-checkbox"><input type="checkbox" data-price="3"> <span class="calc-name">云野</span><span class="calc-price-tag">3R</span></label>
+      <label class="calc-checkbox"><input type="checkbox" data-price="3"> <span class="calc-name">雨林</span><span class="calc-price-tag">3R</span></label>
+      <label class="calc-checkbox"><input type="checkbox" data-price="3"> <span class="calc-name">霞谷</span><span class="calc-price-tag">3R</span></label>
+      <label class="calc-checkbox"><input type="checkbox" data-price="3"> <span class="calc-name">暮土</span><span class="calc-price-tag">3R</span></label>
+      <label class="calc-checkbox"><input type="checkbox" data-price="3"> <span class="calc-name">禁阁</span><span class="calc-price-tag">3R</span></label>
+      <label class="calc-checkbox"><input type="checkbox" data-price="12"> <span class="calc-name">全图一天（代替上述六图）</span><span class="calc-price-tag">12R</span></label>
+
+      <div class="calc-section-title">每日任务</div>
+      <label class="calc-checkbox"><input type="checkbox" data-price="1"> <span class="calc-name">每日任务</span><span class="calc-price-tag">1R</span></label>
+      <label class="calc-checkbox"><input type="checkbox" data-price="2"> <span class="calc-name">每日任务 + 季蜡</span><span class="calc-price-tag">2R</span></label>
+
+      <div class="calc-section-title">蜡烛套餐</div>
+      <label class="calc-checkbox"><input type="checkbox" data-price="2"> <span class="calc-name">5 根蜡烛</span><span class="calc-price-tag">2R</span></label>
+      <label class="calc-checkbox"><input type="checkbox" data-price="3"> <span class="calc-name">10 根蜡烛</span><span class="calc-price-tag">3R</span></label>
+      <label class="calc-checkbox"><input type="checkbox" data-price="5"> <span class="calc-name">15 根蜡烛</span><span class="calc-price-tag">5R</span></label>
+      <label class="calc-checkbox"><input type="checkbox" data-price="10"> <span class="calc-name">20 根蜡烛</span><span class="calc-price-tag">10R</span></label>
+
+      <div class="calc-section-title">季节包毕业</div>
+      <label class="calc-checkbox"><input type="checkbox" data-price="100"> <span class="calc-name">有卡包毕业</span><span class="calc-price-tag">100R</span></label>
+      <label class="calc-checkbox"><input type="checkbox" data-price="110"> <span class="calc-name">无卡包毕业</span><span class="calc-price-tag">110R</span></label>
+
+      <div class="calc-section-title">其他服务</div>
+      <label class="calc-checkbox"><input type="checkbox" data-price="15"> <span class="calc-name">开全图</span><span class="calc-price-tag">15R</span></label>
+      <label class="calc-checkbox"><input type="checkbox" data-price="20"> <span class="calc-name">小金人</span><span class="calc-price-tag">20R</span></label>
+      <label class="calc-checkbox"><input type="checkbox" data-price="7"> <span class="calc-name">献祭</span><span class="calc-price-tag">7R</span></label>
+      <label class="calc-checkbox"><input type="checkbox" data-price="15"> <span class="calc-name">代币全物品</span><span class="calc-price-tag">15R</span></label>
+      <label class="calc-checkbox"><input type="checkbox" data-price="2"> <span class="calc-name">烧红石（次）</span><span class="calc-price-tag">2R</span></label>
+
+      <div class="calculator-total">
+        <span class="calc-label">预估总价</span>
+        <span class="calc-price" id="calcTotal">0R</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-divider"></div>
+    <div class="footer-brand">小羊代肝 · Sky</div>
+    <div class="footer-slogan">温暖庇护 · 代你飞翔</div>
+    <div class="footer-links">
+      <span>微信：Pisces997x</span>
+      <span>QQ：39520092</span>
+      <span>添加请备注「光遇代肝」</span>
+    </div>
+    <div class="footer-copy">&copy; 2026 小羊代肝 · Sky Cocoon. All rights reserved.</div>
+  </footer>
+</div>
+
+<script>
+/* PARTICLES */
+(function() {
+  var canvas=document.createElement('canvas');
+  canvas.style.cssText='position:fixed;inset:0;z-index:0;pointer-events:none;';
+  document.body.prepend(canvas);
+  var ctx=canvas.getContext('2d'),w,h,particles=[],count=35;
+  function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  for(var i=0;i<count;i++)particles.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2+0.5,speed:Math.random()*0.4+0.15,opacity:Math.random()*0.35+0.1,drift:(Math.random()-0.5)*0.3});
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for(var i=0;i<particles.length;i++){
+      var p=particles[i];p.y-=p.speed;p.x+=p.drift;
+      if(p.y<-10){p.y=h+10;p.x=Math.random()*w;}
+      if(p.x<-10)p.x=w+10;if(p.x>w+10)p.x=-10;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      var isDark=document.documentElement.getAttribute('data-theme')==='dark';
+      ctx.fillStyle=isDark?'rgba(214,191,122,'+p.opacity+')':'rgba(180,134,45,'+p.opacity+')';
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* THEME */
+(function(){
+  var t=document.getElementById('themeToggle');
+  var s=localStorage.getItem('sky-theme')||'light';
+  document.documentElement.setAttribute('data-theme',s);
+  t.textContent=s==='dark'?'☀️':'🌙';
+  t.addEventListener('click',function(){
+    var c=document.documentElement.getAttribute('data-theme');
+    var n=c==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',n);
+    t.textContent=n==='dark'?'☀️':'🌙';
+    localStorage.setItem('sky-theme',n);
+  });
+})();
+
+/* HAMBURGER */
+(function(){
+  var h=document.getElementById('hamburger'),m=document.getElementById('mobileMenu');
+  if(h&&m)h.addEventListener('click',function(){h.classList.toggle('open');m.classList.toggle('show');});
+})();
+
+/* SCROLL REVEAL */
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:0.12,rootMargin:'0px 0px -30px 0px'});
+  els.forEach(function(e){obs.observe(e);});
+})();
+
+/* ACCORDION */
+function toggleAccordion(header) {
+  var item=header.parentElement;
+  item.classList.toggle('open');
+  var body=item.querySelector('.accordion-body');
+  if(item.classList.contains('open')){
+    body.style.maxHeight=body.scrollHeight+'px';
+  }else{
+    body.style.maxHeight='0';
+  }
+}
+
+/* PRICE CALCULATOR */
+(function(){
+  var checks=document.querySelectorAll('#calculatorCard input[type="checkbox"]');
+  var totalEl=document.getElementById('calcTotal');
+  function update(){
+    var sum=0;
+    checks.forEach(function(cb){if(cb.checked)sum+=parseInt(cb.dataset.price);});
+    totalEl.textContent=sum+'R';
+  }
+  checks.forEach(function(cb){cb.addEventListener('change',update);});
+})();
+
+/* SEASON SCROLL */
+(function(){
+  var row=document.getElementById('seasonScroll');if(!row)return;
+  var l=document.getElementById('seasonScrollLeft'),r=document.getElementById('seasonScrollRight');
+  l.addEventListener('click',function(){row.scrollBy({left:-220,behavior:'smooth'});});
+  r.addEventListener('click',function(){row.scrollBy({left:220,behavior:'smooth'});});
+  function check(){var v=row.scrollWidth>row.clientWidth+2;l.style.opacity=v?'1':'0';r.style.opacity=v?'1':'0';l.style.pointerEvents=v?'auto':'none';r.style.pointerEvents=v?'auto':'none';}
+  check();window.addEventListener('resize',check);
+})();
+</script>
+</body>
+</html>
