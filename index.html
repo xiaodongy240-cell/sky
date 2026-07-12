@@ -190,6 +190,58 @@
     font-weight: 300;
   }
 
+  .hero-content .hero-contact .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 8px 20px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+    position: relative;
+  }
+  .hero-content .hero-contact .contact-row:hover {
+    background: rgba(255,255,255,0.14);
+    border-color: rgba(255,255,255,0.28);
+    box-shadow: 0 0 20px rgba(255,255,255,0.06);
+  }
+  .contact-tag {
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 3px 9px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .contact-tag-wechat { background: rgba(7,193,96,0.25); color: #5ae894; }
+  .contact-tag-qq { background: rgba(18,150,219,0.25); color: #5cbef2; }
+  .contact-value {
+    font-family: "Cinzel", serif;
+    font-size: clamp(17px, 3vw, 22px);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 3px;
+    transition: color 0.35s;
+  }
+  .contact-copied {
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    color: #5ae894;
+    opacity: 0;
+    transition: opacity 0.35s;
+    pointer-events: none;
+    position: absolute;
+    right: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+  .contact-row.copied .contact-copied { opacity: 1; }
+  .contact-row.copied .contact-value { color: #5ae894; }
+
+
   /* scroll hint */
   .scroll-hint {
     position: absolute;
@@ -598,6 +650,44 @@
     transition: color 0.3s;
   }
   .footer .footer-links a:hover { color: var(--gold-warm); }
+
+  .footer-contact-row {
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    color: var(--text-dim);
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: color 0.3s, opacity 0.3s;
+    position: relative;
+  }
+  .footer-contact-row:hover { color: var(--gold-warm); }
+  .footer-contact-row.copied { color: #5ae894; }
+  .footer-contact-row::after {
+    content: '已复制';
+    position: absolute;
+    right: -48px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: #5ae894;
+    opacity: 0;
+    transition: opacity 0.35s;
+    pointer-events: none;
+    letter-spacing: 0;
+  }
+  .footer-contact-row.copied::after { opacity: 1; }
+  .footer-contact-tag {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+  .footer-contact-tag-wechat { background: rgba(7,193,96,0.12); color: #4a9a6a; }
+  .footer-contact-tag-qq { background: rgba(18,150,219,0.12); color: #4a8aba; }
+
   .footer .footer-copy {
     margin-top: 26px;
     font-family: "Inter", sans-serif;
@@ -799,9 +889,16 @@
     <h1 class="brand-name">小羊代肝 · Sky</h1>
     <p class="brand-tagline">温暖庇护 · 代你飞翔</p>
     <div class="hero-contact reveal">
-      <span class="contact-label">联系方式</span>
-      <span class="contact-id">Pisces997x</span>
-      <span class="contact-id" style="font-size:clamp(14px,2.5vw,20px);letter-spacing:3px;">QQ 39520092</span>
+      <div class="contact-row" data-copy="Pisces997x" onclick="copyContact(this)">
+        <span class="contact-tag contact-tag-wechat">微信</span>
+        <span class="contact-value">Pisces997x</span>
+        <span class="contact-copied">已复制</span>
+      </div>
+      <div class="contact-row" data-copy="39520092" onclick="copyContact(this)">
+        <span class="contact-tag contact-tag-qq">QQ</span>
+        <span class="contact-value">39520092</span>
+        <span class="contact-copied">已复制</span>
+      </div>
       <span class="contact-hint">添加请备注「光遇代肝」</span>
     </div>
   </div>
@@ -1221,8 +1318,9 @@
     <div class="footer-brand">小羊代肝 · Sky</div>
     <div class="footer-slogan">温暖庇护 · 代你飞翔</div>
     <div class="footer-links">
-      <a href="#">微信号：Pisces997x / QQ：39520092</a>
-      <a href="#">添加请备注「光遇代肝」</a>
+      <span class="footer-contact-row" data-copy="Pisces997x" onclick="copyContact(this)"><span class="footer-contact-tag footer-contact-tag-wechat">微信</span> Pisces997x</span>
+      <span class="footer-contact-row" data-copy="39520092" onclick="copyContact(this)"><span class="footer-contact-tag footer-contact-tag-qq">QQ</span> 39520092</span>
+      <span>添加请备注「光遇代肝」</span>
     </div>
     <div class="footer-copy">&copy; 2026 小羊代肝 · Sky Cocoon. All rights reserved.</div>
   </footer>
@@ -1347,6 +1445,31 @@
     });
   });
 })();
+
+function copyContact(el) {
+  var text = el.getAttribute('data-copy');
+  if (!text) return;
+  var done = function() {
+    el.classList.add('copied');
+    setTimeout(function() { el.classList.remove('copied'); }, 1800);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(function() {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      done();
+    });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    done();
+  }
+}
+
 </script>
 </body>
 </html>
