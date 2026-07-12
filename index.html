@@ -233,13 +233,18 @@
     .footer { padding:36px 16px 26px; }
     .footer .footer-links { gap:18px; }
     .highlight-box { padding:14px 18px; gap:16px; }
+    .scroll-row-wrapper { margin:0 -16px; padding:0 16px; }
+    .table-row .col-note { flex:0 0 90px; font-size:11px; }
   }
   @media (max-width:480px) {
+    body { font-size:14px; }
     .hero { height:420px; min-height:auto; }
     .hero-content .brand-name { font-size:30px; letter-spacing:3px; }
     .hero-content .brand-tagline { font-size:10px; letter-spacing:4px; margin-bottom:20px; }
-    .hero-content .hero-contact { padding:14px 22px; border-radius:16px; }
-    .hero-content .hero-contact .contact-id { font-size:16px; letter-spacing:3px; }
+    .hero-content .hero-contact { padding:12px 18px; border-radius:16px; }
+    .hero-content .hero-contact .contact-id { font-size:15px; letter-spacing:2px; }
+    .hero-content .hero-contact .contact-hint { font-size:9px; }
+    .hero-copy-btn { padding:8px 14px; font-size:13px; letter-spacing:1px; gap:6px; }
     .scroll-hint { bottom:22px; }
     section { margin-bottom:60px; }
     .card { padding:20px 15px; border-radius:18px; }
@@ -247,8 +252,50 @@
     .section-heading .section-text .section-title { font-size:19px; }
     .hero .carousel-dots { right:16px; bottom:16px; gap:8px; }
     .hero .carousel-dots button { width:5px; height:5px; }
-    .table-row { padding:12px 10px; gap:8px; }
-    .topnav { padding:0 16px; }
+    .table-row { padding:12px 8px; gap:6px; }
+    .table-row .col-note { display:none; }
+    .table-row.table-row-header .col-note { display:none; }
+    .table-row .col-price { min-width:34px; font-size:13px; letter-spacing:0; }
+    .table-row .col-name { font-size:13px; }
+    .table-row.table-row-header { font-size:9px; letter-spacing:1px; padding:8px 8px 6px; }
+    .highlight-box { flex-direction:column; align-items:flex-start; gap:10px; padding:12px 14px; }
+    .highlight-box .hl-item { font-size:13px; }
+    .highlight-box .hl-item span { font-size:16px; }
+    .scroll-row-wrapper { margin:0 -16px; padding:0 16px; }
+    .scroll-row .scroll-card { width:170px; padding:14px 12px 12px; }
+    .scroll-card .sc-price { font-size:18px; }
+    .scroll-arrows { padding:0 4px; }
+    .scroll-arrows button { width:32px; height:32px; font-size:14px; }
+    .nav-guide { flex-direction:column; gap:14px; padding:0 16px 60px; }
+    .nav-guide-card { padding:20px 16px; }
+    .service-row { gap:16px; }
+    .footer .footer-links { flex-direction:column; align-items:center; gap:12px; }
+    .topnav { padding:0 14px; }
+    .topnav .nav-brand { font-size:13px; letter-spacing:2px; }
+    .container { padding:0 12px 60px; }
+    .hero-content { padding:0 16px 50px; }
+    .contact-form-card input, .contact-form-card textarea { font-size:13px; padding:10px 12px; }
+    .accordion-header { font-size:14px; }
+    .accordion-body { font-size:13px; }
+  }
+  @media (max-width:375px) {
+    .hero { height:380px; }
+    .hero-content .brand-name { font-size:26px; letter-spacing:2px; }
+    .hero-content .brand-tagline { font-size:9px; letter-spacing:3px; margin-bottom:16px; }
+    .hero-content .hero-contact { padding:10px 16px; border-radius:14px; }
+    .hero-copy-btn { padding:7px 12px; font-size:12px; }
+    .hero-content .hero-contact .contact-id { font-size:14px; letter-spacing:1px; }
+    .hero-content .hero-contact .contact-label { font-size:9px; letter-spacing:2px; }
+    .card { padding:16px 12px; border-radius:16px; }
+    .card > .card-title { font-size:14px; margin-bottom:14px; }
+    .table-row { padding:10px 6px; gap:4px; }
+    .table-row .col-price { min-width:30px; font-size:12px; }
+    .table-row .col-name { font-size:12px; }
+    .scroll-row .scroll-card { width:150px; padding:12px 10px 10px; }
+    .scroll-card .sc-name { font-size:13px; }
+    .scroll-card .sc-price { font-size:16px; }
+    .section-heading .section-text .section-title { font-size:17px; }
+    .back-to-top { bottom:16px; right:12px; width:36px; height:36px; font-size:15px; }
   }
 
   /* ====== INTERACTION ENHANCEMENTS ====== */
