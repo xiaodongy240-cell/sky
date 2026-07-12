@@ -87,6 +87,15 @@
   .hero-content .hero-contact .contact-label { font-family:"Inter",sans-serif; font-size:10px; color:rgba(255,255,255,0.7); letter-spacing:4px; text-transform:uppercase; font-weight:500; }
   .hero-content .hero-contact .contact-id { font-family:"Cinzel",serif; font-size:clamp(18px,3.5vw,26px); font-weight:700; color:#fff; letter-spacing:5px; text-shadow:0 0 20px rgba(255,255,255,0.3); }
   .hero-content .hero-contact .contact-hint { font-family:"Inter",sans-serif; font-size:10px; color:rgba(255,255,255,0.65); letter-spacing:1px; font-weight:300; }
+  .hero-contact-rows { display:flex; flex-direction:column; gap:8px; width:100%; }
+  .hero-copy-btn { display:flex; align-items:center; gap:10px; padding:10px 18px; border-radius:12px; border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.08); color:#fff; font-family:"Cinzel",serif; font-size:15px; font-weight:600; letter-spacing:2px; cursor:pointer; transition:all 0.3s; -webkit-tap-highlight-color:transparent; }
+  .hero-copy-btn:hover { background:rgba(255,255,255,0.16); border-color:rgba(255,255,255,0.35); transform:translateY(-1px); }
+  .hero-copy-btn.copied { border-color:rgba(90,200,140,0.5); background:rgba(90,200,140,0.15); }
+  .hero-copy-btn.copied .copy-val::after { content:' · 已复制'; font-family:"Inter",sans-serif; font-size:11px; font-weight:400; letter-spacing:0; color:rgba(90,200,140,0.9); }
+  .copy-tag { display:inline-block; padding:2px 10px; border-radius:5px; font-family:"Inter",sans-serif; font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+  .copy-tag.wechat { background:#2dc100; color:#fff; }
+  .copy-tag.qq { background:#12b7f5; color:#fff; }
+  .copy-val { letter-spacing:3px; }
   .scroll-hint { position:absolute; bottom:40px; left:50%; transform:translateX(-50%); z-index:2; display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0.5; animation:float-hint 3s ease-in-out infinite; }
   @keyframes float-hint { 0%,100%{ transform:translateX(-50%) translateY(0); opacity:0.4; } 50%{ transform:translateX(-50%) translateY(10px); opacity:0.7; } }
   .scroll-hint span { font-family:"Inter",sans-serif; font-size:9px; color:var(--text-dim); letter-spacing:3px; text-transform:uppercase; }
@@ -194,6 +203,11 @@
   .footer .footer-links { display:flex; justify-content:center; gap:36px; flex-wrap:wrap; }
   .footer .footer-links span { font-family:"Inter",sans-serif; font-size:12px; color:var(--text-dim); text-decoration:none; letter-spacing:1px; transition:color 0.3s; }
   .footer .footer-copy { margin-top:28px; font-family:"Inter",sans-serif; font-size:10px; color:rgba(92,94,108,0.5); letter-spacing:2px; }
+  .footer-copy-btn { display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:8px; border:1px solid var(--border); background:transparent; color:var(--text); font-family:"Inter","PingFang SC",sans-serif; font-size:12px; cursor:pointer; transition:all 0.3s; letter-spacing:1px; -webkit-tap-highlight-color:transparent; }
+  .footer-copy-btn:hover { border-color:var(--border-gold); background:rgba(196,154,74,0.06); }
+  .footer-copy-btn.copied { border-color:rgba(90,200,140,0.3); background:rgba(90,200,140,0.06); }
+  .footer-copy-btn.copied::after { content:'已复制'; font-size:10px; color:#5ac88c; font-weight:500; }
+  .footer-note { font-size:11px; color:var(--text-dim); letter-spacing:1px; }
 
   @media (max-width:768px) {
     .hero { height:520px; min-height:auto; }
@@ -246,8 +260,17 @@
       <p class="brand-tagline">温暖庇护 · 代你飞翔</p>
       <div class="hero-contact reveal">
         <span class="contact-label">联系方式</span>
-        <span class="contact-id">Pisces997x</span>
-        <span class="contact-hint">添加请备注「光遇代肝」</span>
+        <div class="hero-contact-rows">
+          <button class="hero-copy-btn wechat" onclick="copyContact('Pisces997x',this)" data-text="Pisces997x">
+            <span class="copy-tag wechat">微信</span>
+            <span class="copy-val">Pisces997x</span>
+          </button>
+          <button class="hero-copy-btn qq" onclick="copyContact('39520092',this)" data-text="39520092">
+            <span class="copy-tag qq">QQ</span>
+            <span class="copy-val">39520092</span>
+          </button>
+        </div>
+        <span class="contact-hint">点击复制 · 添加请备注「光遇代肝」</span>
       </div>
     </div>
     <div class="scroll-hint">
@@ -473,9 +496,15 @@
       <div class="footer-brand">小羊代肝 · Sky</div>
       <div class="footer-slogan">温暖庇护 · 代你飞翔</div>
       <div class="footer-links">
-        <span>微信：Pisces997x</span>
-        <span>QQ：39520092</span>
-        <span>添加请备注「光遇代肝」</span>
+        <button class="footer-copy-btn wechat" onclick="copyContact('Pisces997x',this)" data-text="Pisces997x">
+          <span class="copy-tag wechat">微信</span>
+          <span>Pisces997x</span>
+        </button>
+        <button class="footer-copy-btn qq" onclick="copyContact('39520092',this)" data-text="39520092">
+          <span class="copy-tag qq">QQ</span>
+          <span>39520092</span>
+        </button>
+        <span class="footer-note">点击复制 · 添加请备注「光遇代肝」</span>
       </div>
       <div class="footer-copy">&copy; 2026 小羊代肝 · Sky Cocoon. All rights reserved.</div>
     </footer>
@@ -561,6 +590,21 @@
       .finally(function(){btn.classList.remove('loading');btn.textContent='\u27A4 发送留言';});
   });
 })();
+
+/* COPY CONTACT */
+function copyContact(text, btn) {
+  navigator.clipboard.writeText(text).then(function() {
+    btn.classList.add('copied');
+    setTimeout(function() { btn.classList.remove('copied'); }, 2000);
+  }).catch(function() {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    btn.classList.add('copied');
+    setTimeout(function() { btn.classList.remove('copied'); }, 2000);
+  });
+}
 
 /* ACCORDION */
 function toggleAccordion(header) {
