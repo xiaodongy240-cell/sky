@@ -67,6 +67,55 @@
     padding: 28px 20px 80px;
   }
 
+  /* ===== Hero Carousel ===== */
+  .hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+    margin-bottom: -60px;
+    mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
+  }
+  .hero-carousel .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  .hero-carousel .slide.active {
+    opacity: 1;
+  }
+  .hero-carousel .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .hero-carousel .carousel-dots {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+  }
+  .hero-carousel .carousel-dots button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.7);
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .hero-carousel .carousel-dots button.active {
+    background: rgba(255,255,255,0.9);
+    border-color: rgba(255,255,255,0.9);
+  }
+
   /* ===== Header ===== */
   .header {
     text-align: center;
@@ -324,6 +373,24 @@
 </head>
 <body>
 
+<!-- ====== Hero Carousel ====== -->
+<div class="hero-carousel" id="heroCarousel">
+  <div class="slide active">
+    <img src="images/sky-01.jpeg" alt="光遇插画 - 探索与希望">
+  </div>
+  <div class="slide">
+    <img src="images/sky-02.jpeg" alt="光遇插画 - 静思与自然之美">
+  </div>
+  <div class="slide">
+    <img src="images/sky-03.jpeg" alt="光遇插画 - 孤独与陪伴">
+  </div>
+  <div class="carousel-dots" id="carouselDots">
+    <button class="active" data-index="0"></button>
+    <button data-index="1"></button>
+    <button data-index="2"></button>
+  </div>
+</div>
+
 <div class="container">
 
   <!-- ====== Header ====== -->
@@ -579,5 +646,28 @@
 
 </div>
 
+<script>
+(function() {
+  const slides = document.querySelectorAll('#heroCarousel .slide');
+  const dots = document.querySelectorAll('#carouselDots button');
+  let current = 0;
+  const total = slides.length;
+  const interval = 4500;
+
+  function goTo(index) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (index + total) % total;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => goTo(parseInt(dot.dataset.index)));
+  });
+
+  setInterval(() => goTo(current + 1), interval);
+})();
+</script>
 </body>
 </html>
