@@ -372,6 +372,125 @@
   @media (max-width:480px) {
     .back-to-top { bottom:20px; right:16px; width:40px; height:40px; font-size:16px; }
   }
+
+  /* ====== ENHANCEMENT 1: Hero 标题渐显发光动画 ====== */
+  .brand-name { animation:hero-glow-in 2s cubic-bezier(0.22,0.61,0.36,1) forwards; opacity:0; }
+  @keyframes hero-glow-in {
+    0% { opacity:0; filter:blur(12px); transform:translateY(16px); text-shadow:0 0 0 rgba(255,220,150,0); }
+    60% { opacity:1; filter:blur(0); transform:translateY(0); }
+    100% { opacity:1; filter:blur(0); transform:translateY(0); text-shadow:0 2px 24px rgba(140,100,50,0.35),0 0 60px rgba(255,200,100,0.3),0 0 120px rgba(200,150,60,0.2); }
+  }
+  .brand-tagline { animation:tagline-fade 2.5s cubic-bezier(0.22,0.61,0.36,1) 0.6s forwards; opacity:0; }
+  @keyframes tagline-fade {
+    0% { opacity:0; transform:translateY(10px); }
+    100% { opacity:1; transform:translateY(0); }
+  }
+  .hero-contact.reveal { animation:contact-rise 2.8s cubic-bezier(0.22,0.61,0.36,1) 0.9s forwards; opacity:0; transform:translateY(20px); }
+  @keyframes contact-rise {
+    0% { opacity:0; transform:translateY(20px); }
+    100% { opacity:1; transform:translateY(0); }
+  }
+
+  /* ====== ENHANCEMENT 2: SVG 云朵波浪分隔线 ====== */
+  .section-divider { display:block; width:100%; max-width:880px; margin:0 auto; position:relative; z-index:1; }
+  .section-divider svg { display:block; width:100%; height:auto; }
+  .section-divider .cloud-path { fill:var(--bg); transition:fill 0.4s; }
+
+  /* ====== ENHANCEMENT 3: 价格火花/星光闪烁 ====== */
+  .price-sparkle { position:relative; display:inline-block; }
+  .price-sparkle::before,
+  .price-sparkle::after { content:''; position:absolute; pointer-events:none; border-radius:50%;
+    background:var(--gold-bright);
+    animation:sparkle-twinkle 1.8s ease-in-out infinite;
+    opacity:0;
+  }
+  .price-sparkle::before { width:4px; height:4px; top:-6px; right:-8px; animation-delay:0s; }
+  .price-sparkle::after { width:3px; height:3px; top:-2px; right:-14px; animation-delay:0.9s; }
+  @keyframes sparkle-twinkle {
+    0%,100% { opacity:0; transform:scale(0.3); }
+    30% { opacity:0.9; transform:scale(1.2); }
+    60% { opacity:0; transform:scale(1.6); }
+  }
+  .hl-item .price-sparkle::before { width:6px; height:6px; top:-7px; right:-10px; }
+  .hl-item .price-sparkle::after { width:4px; height:4px; top:-3px; right:-18px; }
+
+  /* ====== ENHANCEMENT 4: 手风琴弹跳 ====== */
+  .accordion-item.open .accordion-body-inner { animation:accordion-bounce 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+  @keyframes accordion-bounce {
+    0% { transform:translateY(-8px); opacity:0.6; }
+    100% { transform:translateY(0); opacity:1; }
+  }
+  .accordion-item.open .scroll-card { animation:card-pop-in 0.45s cubic-bezier(0.34,1.56,0.64,1) forwards; opacity:0; }
+  @keyframes card-pop-in {
+    0% { transform:scale(0.9); opacity:0; }
+    100% { transform:scale(1); opacity:1; }
+  }
+  .accordion-item.open .scroll-card:nth-child(1) { animation-delay:0.05s; }
+  .accordion-item.open .scroll-card:nth-child(2) { animation-delay:0.1s; }
+  .accordion-item.open .scroll-card:nth-child(3) { animation-delay:0.15s; }
+  .accordion-item.open .scroll-card:nth-child(4) { animation-delay:0.2s; }
+  .accordion-item.open .scroll-card:nth-child(5) { animation-delay:0.25s; }
+
+  /* ====== ENHANCEMENT 5: 卡片角落装饰星芒 ====== */
+  .card { position:relative; }
+  .card::after { content:''; position:absolute; top:14px; right:18px; width:20px; height:20px;
+    background:radial-gradient(circle, var(--gold-light) 0%, transparent 70%);
+    border-radius:50%; opacity:0; transition:opacity 0.6s ease;
+    pointer-events:none; z-index:2;
+    animation:corner-glimmer 3s ease-in-out infinite;
+  }
+  @keyframes corner-glimmer {
+    0%,100% { opacity:0; transform:scale(0.6); }
+    40% { opacity:0.25; transform:scale(1.3); }
+    70% { opacity:0.08; transform:scale(0.9); }
+  }
+  .contact-form-card::after { display:none; }
+
+  /* ====== ENHANCEMENT 6: 表单成功撒花容器 ====== */
+  .confetti-container { position:fixed; inset:0; pointer-events:none; z-index:999; }
+  .confetti-piece { position:absolute; pointer-events:none; animation:confetti-fall 2.5s ease-out forwards; }
+  @keyframes confetti-fall {
+    0% { transform:translateY(0) rotate(0deg) scale(1); opacity:1; }
+    100% { transform:translateY(105vh) rotate(720deg) scale(0.3); opacity:0; }
+  }
+
+  /* ====== ENHANCEMENT 7: 页面底部流动星河细线 ====== */
+  .galaxy-line { position:relative; width:100%; height:4px; margin-top:40px; overflow:hidden; z-index:1; }
+  .galaxy-line::before { content:''; position:absolute; top:0; left:-100%; width:200%; height:100%;
+    background:linear-gradient(90deg,
+      transparent 0%, transparent 9%,
+      rgba(196,154,74,0.05) 12%, rgba(196,154,74,0.15) 16%,
+      rgba(255,210,130,0.2) 20%, rgba(196,154,74,0.15) 24%,
+      rgba(196,154,74,0.05) 28%, transparent 32%,
+      transparent 44%,
+      rgba(196,154,74,0.08) 48%, rgba(255,210,130,0.25) 52%,
+      rgba(196,154,74,0.08) 56%, transparent 60%,
+      transparent 75%,
+      rgba(196,154,74,0.06) 78%, rgba(255,210,130,0.18) 82%,
+      rgba(196,154,74,0.06) 86%, transparent 90%,
+      transparent 100%
+    );
+    animation:galaxy-flow 8s linear infinite;
+  }
+  .galaxy-line::after { content:''; position:absolute; top:1px; left:0; right:0; height:2px;
+    background:radial-gradient(ellipse at 35% 50%, rgba(196,154,74,0.12) 0%, transparent 60%),
+               radial-gradient(ellipse at 65% 50%, rgba(255,210,130,0.1) 0%, transparent 55%),
+               radial-gradient(ellipse at 50% 50%, rgba(196,154,74,0.05) 0%, transparent 70%);
+    animation:galaxy-shimmer 4s ease-in-out infinite alternate;
+  }
+  @keyframes galaxy-flow {
+    0% { transform:translateX(0); }
+    100% { transform:translateX(50%); }
+  }
+  @keyframes galaxy-shimmer {
+    0% { opacity:0.4; }
+    100% { opacity:1; }
+  }
+
+  @media (max-width:640px) {
+    .brand-name { letter-spacing:6px; }
+    .hero-content .brand-name { letter-spacing:6px; }
+  }
 </style>
 </head>
 <body class="has-nav">
@@ -421,6 +540,12 @@
   <!-- ====== CONTENT ====== -->
   <div class="container">
 
+    <div class="section-divider" aria-hidden="true">
+      <svg viewBox="0 0 880 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="cloud-path" d="M0,30 Q30,8 80,22 Q110,4 160,18 Q190,2 240,20 Q260,5 310,18 Q340,0 390,22 Q420,6 470,16 Q500,4 550,20 Q580,2 630,18 Q660,6 710,22 Q740,4 790,18 Q830,0 880,24 L880,60 L0,60 Z" opacity="0.35"/>
+        <path class="cloud-path" d="M0,40 Q45,16 110,32 Q145,14 200,28 Q230,10 290,30 Q320,12 370,26 Q410,8 460,30 Q500,14 550,26 Q590,8 640,28 Q680,10 730,24 Q770,6 830,30 Q860,16 880,32 L880,60 L0,60 Z" opacity="0.18"/>
+      </svg>
+    </div>
     <span class="divider-line" style="display:block;width:60px;height:1px;background:linear-gradient(90deg,transparent,rgba(196,154,74,0.35),transparent);margin:0 auto 44px;"></span>
 
     <!-- ====== 代跑服务 ====== -->
@@ -437,17 +562,17 @@
         <div class="card-title">六大图跑图</div>
         <div class="table-rows">
           <div class="table-row table-row-header"><span class="col-name">地图</span><span class="col-price">一天</span><span class="col-price">包周</span><span class="col-price">包月</span><span class="col-note">备注</span></div>
-          <div class="table-row"><span class="col-name">晨岛</span><span class="col-price">1R</span><span class="col-price">5R</span><span class="col-price">20R</span><span class="col-note">不包试炼</span></div>
-          <div class="table-row"><span class="col-name">云野</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note"></span></div>
-          <div class="table-row"><span class="col-name">雨林</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note">不包风行网道</span></div>
-          <div class="table-row"><span class="col-name">霞谷</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note">不包雪隐峰赛道</span></div>
-          <div class="table-row"><span class="col-name">暮土</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note">大花随缘</span></div>
-          <div class="table-row"><span class="col-name">禁阁</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note"></span></div>
+          <div class="table-row"><span class="col-name">晨岛</span><span class="col-price">1R</span><span class="col-price">5R</span><span class="col-price"><span class="price-sparkle">20R</span></span><span class="col-note">不包试炼</span></div>
+          <div class="table-row"><span class="col-name">云野</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price"><span class="price-sparkle">60R</span></span><span class="col-note"></span></div>
+          <div class="table-row"><span class="col-name">雨林</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price"><span class="price-sparkle">60R</span></span><span class="col-note">不包风行网道</span></div>
+          <div class="table-row"><span class="col-name">霞谷</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price"><span class="price-sparkle">60R</span></span><span class="col-note">不包雪隐峰赛道</span></div>
+          <div class="table-row"><span class="col-name">暮土</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price"><span class="price-sparkle">60R</span></span><span class="col-note">大花随缘</span></div>
+          <div class="table-row"><span class="col-name">禁阁</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price"><span class="price-sparkle">60R</span></span><span class="col-note"></span></div>
         </div>
         <div class="highlight-box">
           <div class="hl-item">全图一天 <span>12R</span></div>
           <div class="hl-item">全图包周 <span>84R</span></div>
-          <div class="hl-item">全图包月 <span>360R</span></div>
+          <div class="hl-item">全图包月 <span class="price-sparkle">360R</span></div>
           <span class="tag">全图包月送每日任务</span>
         </div>
       </div>
@@ -456,8 +581,8 @@
         <div class="card-title">每日任务</div>
         <div class="table-rows">
           <div class="table-row table-row-header"><span class="col-name">项目</span><span class="col-price">一天</span><span class="col-price">包周</span><span class="col-price">包月</span></div>
-          <div class="table-row"><span class="col-name">每日任务</span><span class="col-price">1R</span><span class="col-price">7R</span><span class="col-price">27R</span></div>
-          <div class="table-row"><span class="col-name">每日任务 + 季蜡</span><span class="col-price">2R</span><span class="col-price">14R</span><span class="col-price">50R</span></div>
+          <div class="table-row"><span class="col-name">每日任务</span><span class="col-price">1R</span><span class="col-price">7R</span><span class="col-price"><span class="price-sparkle">27R</span></span></div>
+          <div class="table-row"><span class="col-name">每日任务 + 季蜡</span><span class="col-price">2R</span><span class="col-price">14R</span><span class="col-price"><span class="price-sparkle">50R</span></span></div>
         </div>
       </div>
 
@@ -465,10 +590,10 @@
         <div class="card-title">&#x1F525; 蜡烛套餐</div>
         <div class="table-rows">
           <div class="table-row table-row-header"><span class="col-name">数量</span><span class="col-price">一天</span><span class="col-price">包周</span><span class="col-price">包月</span><span class="col-note">备注</span></div>
-          <div class="table-row"><span class="col-name">5 根</span><span class="col-price">2R</span><span class="col-price">12R</span><span class="col-price">50R</span><span class="col-note"></span></div>
-          <div class="table-row"><span class="col-name">10 根</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">80R</span><span class="col-note"></span></div>
-          <div class="table-row"><span class="col-name">15 根</span><span class="col-price">5R</span><span class="col-price">31R</span><span class="col-price">140R</span><span class="col-note"></span></div>
-          <div class="table-row"><span class="col-name">20 根</span><span class="col-price">10R</span><span class="col-price">60R</span><span class="col-price">270R</span><span class="col-note">包月送每日任务 15 次</span></div>
+          <div class="table-row"><span class="col-name">5 根</span><span class="col-price">2R</span><span class="col-price">12R</span><span class="col-price"><span class="price-sparkle">50R</span></span><span class="col-note"></span></div>
+          <div class="table-row"><span class="col-name">10 根</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price"><span class="price-sparkle">80R</span></span><span class="col-note"></span></div>
+          <div class="table-row"><span class="col-name">15 根</span><span class="col-price">5R</span><span class="col-price">31R</span><span class="col-price"><span class="price-sparkle">140R</span></span><span class="col-note"></span></div>
+          <div class="table-row"><span class="col-name">20 根</span><span class="col-price">10R</span><span class="col-price">60R</span><span class="col-price"><span class="price-sparkle">270R</span></span><span class="col-note">包月送每日任务 15 次</span></div>
         </div>
       </div>
 
@@ -492,6 +617,13 @@
         </div>
       </div>
     </section>
+
+    <div class="section-divider" aria-hidden="true" style="margin-bottom:60px;">
+      <svg viewBox="0 0 880 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="cloud-path" d="M0,25 Q35,5 100,18 Q140,0 200,16 Q235,4 290,20 Q330,4 380,14 Q420,2 470,20 Q510,6 560,16 Q600,2 650,20 Q690,4 740,14 Q780,0 830,22 Q860,8 880,18 L880,50 L0,50 Z" opacity="0.28"/>
+        <path class="cloud-path" d="M0,38 Q50,14 130,28 Q170,10 230,22 Q270,6 340,30 Q380,12 440,22 Q490,8 550,28 Q600,10 660,20 Q710,4 770,26 Q810,10 880,30 L880,50 L0,50 Z" opacity="0.14"/>
+      </svg>
+    </div>
 
     <!-- ====== 代找先祖 ====== -->
     <section>
@@ -551,6 +683,13 @@
       </div>
     </section>
 
+    <div class="section-divider" aria-hidden="true" style="margin-bottom:60px;">
+      <svg viewBox="0 0 880 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="cloud-path" d="M0,22 Q40,4 110,20 Q155,2 220,14 Q260,0 320,18 Q360,4 420,12 Q470,0 530,18 Q580,4 640,16 Q680,2 740,20 Q790,4 850,14 Q880,6 880,18 L880,50 L0,50 Z" opacity="0.25"/>
+        <path class="cloud-path" d="M0,36 Q55,12 140,28 Q185,8 250,20 Q300,4 370,30 Q420,10 480,22 Q540,6 610,28 Q660,10 730,22 Q780,6 850,28 Q880,16 880,22 L880,50 L0,50 Z" opacity="0.12"/>
+      </svg>
+    </div>
+
     <!-- ====== FAQ ====== -->
     <section>
       <div class="section-heading reveal">
@@ -589,6 +728,13 @@
       </div>
     </section>
 
+    <div class="section-divider" aria-hidden="true" style="margin-bottom:60px;">
+      <svg viewBox="0 0 880 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="cloud-path" d="M0,28 Q30,6 95,22 Q130,4 190,16 Q225,2 280,20 Q320,6 375,14 Q420,2 480,18 Q525,4 580,16 Q620,2 680,20 Q720,6 775,14 Q820,2 870,20 Q880,12 880,18 L880,50 L0,50 Z" opacity="0.30"/>
+        <path class="cloud-path" d="M0,40 Q45,16 120,30 Q160,12 220,24 Q265,8 340,32 Q385,14 450,24 Q510,8 580,30 Q630,14 700,24 Q750,8 820,28 Q860,14 880,26 L880,50 L0,50 Z" opacity="0.15"/>
+      </svg>
+    </div>
+
     <!-- ====== 给我留言 ====== -->
     <section id="contactSection">
       <div class="section-heading reveal">
@@ -625,6 +771,8 @@
       </div>
     </section>
 
+    <div class="galaxy-line" aria-hidden="true"></div>
+
     <footer class="footer">
       <div class="footer-divider"></div>
       <div class="footer-brand">小羊代肝 · Sky</div>
@@ -645,26 +793,89 @@
   </div>
 
 <script>
-/* PARTICLES */
+/* PARTICLES - enhanced with varied sizes/speeds & feather shapes */
 (function() {
   var canvas = document.createElement('canvas');
   canvas.id = 'particles';
   canvas.style.cssText = 'position:fixed;inset:0;z-index:0;pointer-events:none;';
   document.body.prepend(canvas);
-  var ctx = canvas.getContext('2d'), w, h, particles = [], count = 35;
+  var ctx = canvas.getContext('2d'), w, h, particles = [];
   function resize() { w=canvas.width=window.innerWidth; h=canvas.height=window.innerHeight; }
   resize(); window.addEventListener('resize', resize);
-  for (var i=0;i<count;i++) particles.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2+0.5,speed:Math.random()*0.4+0.15,opacity:Math.random()*0.35+0.1,drift:(Math.random()-0.5)*0.3});
+
+  // light dots — more varied
+  for (var i=0;i<50;i++) {
+    particles.push({
+      type:'dot',
+      x:Math.random()*w, y:Math.random()*h,
+      r:Math.random()*4+0.5,
+      speed:Math.random()*0.6+0.1,
+      opacity:Math.random()*0.45+0.08,
+      drift:(Math.random()-0.5)*0.4,
+      glow:Math.random()>0.6
+    });
+  }
+  // feather/wing shapes (few)
+  for (var i=0;i<8;i++) {
+    particles.push({
+      type:'feather',
+      x:Math.random()*w, y:Math.random()*h,
+      size:Math.random()*10+4,
+      speed:Math.random()*0.3+0.08,
+      opacity:Math.random()*0.2+0.05,
+      drift:(Math.random()-0.5)*0.2,
+      angle:Math.random()*Math.PI*2,
+      wobble:Math.random()*0.02+0.005
+    });
+  }
+
+  function drawFeather(p) {
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.angle);
+    var s=p.size;
+    var isDark = document.documentElement.getAttribute('data-theme')==='dark';
+    var c=isDark?'rgba(214,191,122,'+p.opacity+')':'rgba(180,134,45,'+p.opacity+')';
+    ctx.fillStyle=c;
+    // feather shape: curved teardrop
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.bezierCurveTo(-s*0.5,-s*0.3, -s*1.2,-s*0.5, -s*1.4,-s*0.15);
+    ctx.bezierCurveTo(-s*1.2,s*0.2, -s*0.5,s*0.35, 0,0);
+    ctx.fill();
+    // second side
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.bezierCurveTo(s*0.3,-s*0.4, s*0.9,-s*0.55, s*1.1,-s*0.2);
+    ctx.bezierCurveTo(s*0.9,s*0.15, s*0.3,s*0.3, 0,0);
+    ctx.fill();
+    ctx.restore();
+  }
+
   function draw() {
     ctx.clearRect(0,0,w,h);
+    var isDark = document.documentElement.getAttribute('data-theme')==='dark';
     for (var i=0;i<particles.length;i++) {
-      var p=particles[i]; p.y-=p.speed; p.x+=p.drift;
-      if(p.y<-10){p.y=h+10;p.x=Math.random()*w;}
-      if(p.x<-10)p.x=w+10; if(p.x>w+10)p.x=-10;
+      var p=particles[i];
+      p.y-=p.speed; p.x+=p.drift;
+      if(p.type==='feather'){ p.angle+=p.wobble; }
+      if(p.y<-20){p.y=h+20;p.x=Math.random()*w;}
+      if(p.x<-20)p.x=w+20; if(p.x>w+20)p.x=-20;
+
+      if(p.type==='feather'){
+        drawFeather(p);
+        continue;
+      }
+      // dot
       ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      ctx.fillStyle = isDark ? 'rgba(214,191,122,'+p.opacity+')' : 'rgba(180,134,45,'+p.opacity+')';
+      var base=isDark?'rgba(214,191,122,'+p.opacity+')':'rgba(180,134,45,'+p.opacity+')';
+      ctx.fillStyle=base;
+      if(p.glow){
+        ctx.shadowColor=isDark?'rgba(255,210,140,0.5)':'rgba(200,150,60,0.35)';
+        ctx.shadowBlur=p.r*3;
+      }
       ctx.fill();
+      ctx.shadowColor='transparent'; ctx.shadowBlur=0;
     }
     requestAnimationFrame(draw);
   }
@@ -707,17 +918,39 @@
   els.forEach(function(e){obs.observe(e);});
 })();
 
-/* CONTACT FORM AJAX */
+/* CONTACT FORM AJAX with confetti */
 (function() {
   var form=document.querySelector('.contact-form-card form'), btn=document.getElementById('formSubmitBtn');
   var errEl=document.getElementById('formError'), okEl=document.getElementById('formSuccess');
   if(!form||!btn)return;
+
+  function spawnConfetti() {
+    var container=document.createElement('div');
+    container.className='confetti-container'; document.body.appendChild(container);
+    var colors=['#cfb064','#c59b4c','#ffd896','#e8c97a','#f0d68a','#ffe0a0','#b88a3a','#dfc080'];
+    for(var i=0;i<70;i++){
+      var piece=document.createElement('div');
+      piece.className='confetti-piece';
+      var size=Math.random()*8+4;
+      var left=Math.random()*100;
+      var delay=Math.random()*0.6;
+      var dur=Math.random()*0.8+2;
+      var shape=Math.random()>0.5?'50%':'0%';
+      piece.style.cssText='left:'+left+'%;top:-20px;width:'+size+'px;height:'+size+'px;'
+        +'background:'+colors[Math.floor(Math.random()*colors.length)]+';'
+        +'border-radius:'+shape+';'
+        +'animation-delay:'+delay+'s;animation-duration:'+dur+'s;';
+      container.appendChild(piece);
+    }
+    setTimeout(function(){container.remove();},3500);
+  }
+
   form.addEventListener('submit',function(e){
     e.preventDefault(); errEl.classList.remove('show'); btn.classList.add('loading'); btn.textContent='发送中...';
     fetch(form.action,{method:'POST',body:new FormData(form)})
       .then(function(r){return r.json();})
       .then(function(d){
-        if(d.success){form.style.display='none';okEl.classList.add('show');setTimeout(function(){okEl.classList.remove('show');form.style.display='';form.reset();},3000);}
+        if(d.success){form.style.display='none';okEl.classList.add('show');spawnConfetti();setTimeout(function(){okEl.classList.remove('show');form.style.display='';form.reset();},3000);}
         else{errEl.textContent=d.message||'发送失败，请稍后重试';errEl.classList.add('show');}
       })
       .catch(function(){errEl.textContent='网络异常，请检查网络后重试';errEl.classList.add('show');})
