@@ -491,17 +491,7 @@ function toggleAccordion(header) {
   }
 }
 
-/* PRICE CALCULATOR */
-(function(){
-  var checks=document.querySelectorAll('#calculatorCard input[type="checkbox"]');
-  var totalEl=document.getElementById('calcTotal');
-  function update(){
-    var sum=0;
-    checks.forEach(function(cb){if(cb.checked)sum+=parseInt(cb.dataset.price);});
-    totalEl.textContent=sum+'R';
-  }
-  checks.forEach(function(cb){cb.addEventListener('change',update);});
-})();
+
 
 /* SEASON SCROLL */
 (function(){
