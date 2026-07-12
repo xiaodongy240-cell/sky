@@ -9,25 +9,30 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #050609;
-    --surface: rgba(14, 16, 24, 0.6);
-    --surface-hover: rgba(20, 23, 32, 0.78);
-    --surface-alt: rgba(16, 18, 26, 0.5);
-    --gold: #bf9b44;
-    --gold-light: #d6bf7a;
-    --gold-bright: #e2cd88;
-    --gold-dim: #8a723e;
-    --text: #a0a2b0;
-    --text-dim: #5c5e6c;
-    --text-bright: #e0e0ea;
-    --accent: #b08d38;
-    --border: rgba(255,255,255,0.04);
-    --border-gold: rgba(191,155,68,0.12);
-    --tag-bg: rgba(191,155,68,0.1);
-    --tag-text: #c4a24a;
-    --danger: #c85858;
-    --radius: 20px;
-    --radius-sm: 14px;
+    --bg: #f7f3ea;
+    --bg2: #f0ebe0;
+    --card: rgba(255,252,246,0.82);
+    --card-hover: rgba(255,252,246,0.94);
+    --card-alt: rgba(250,245,235,0.7);
+    --gold: #c49a4a;
+    --gold-light: #d9bb72;
+    --gold-bright: #e2c980;
+    --gold-warm: #b8862d;
+    --text: #5a5040;
+    --text-dim: #9b9180;
+    --text-bright: #3a3028;
+    --accent: #c49a4a;
+    --border: rgba(180,160,130,0.2);
+    --border-gold: rgba(196,154,74,0.3);
+    --tag-bg: rgba(196,154,74,0.15);
+    --tag-text: #a07830;
+    --danger: #c47070;
+    --shadow-card: 0 4px 32px rgba(180,150,110,0.15), 0 1px 3px rgba(160,130,90,0.08);
+    --shadow-hover: 0 8px 48px rgba(180,150,110,0.22), 0 2px 6px rgba(160,130,90,0.12);
+    --sky-blue: #a5c8df;
+    --sky-pale: #dce8f2;
+    --radius: 26px;
+    --radius-sm: 18px;
   }
 
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -38,20 +43,29 @@
   }
 
   body {
-    background: var(--bg);
+    background:
+      linear-gradient(175deg, #f7f3ea 0%, #efe8d8 25%, #f2eddf 50%, #ece4d4 75%, #f5f0e5 100%);
+    background-attachment: fixed;
     color: var(--text);
     font-family: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", -apple-system, sans-serif;
     font-weight: 400;
     line-height: 1.8;
     min-height: 100vh;
-    background-image:
-      radial-gradient(ellipse 1100px 600px at 50% 0%, rgba(191,155,68,0.055) 0%, transparent 70%),
-      radial-gradient(ellipse 800px 450px at 80% 75%, rgba(191,155,68,0.035) 0%, transparent 60%),
-      radial-gradient(ellipse 600px 350px at 20% 30%, rgba(140,120,80,0.025) 0%, transparent 55%);
-    background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    position: relative;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 1000px 500px at 50% 10%, rgba(196,154,74,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 600px 400px at 85% 80%, rgba(165,200,223,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 500px 300px at 15% 45%, rgba(210,190,150,0.05) 0%, transparent 55%);
+    z-index: 0;
   }
 
   /* ========== PARTICLE CANVAS ========== */
@@ -67,15 +81,14 @@
     position: relative;
     width: 100%;
     height: 100vh;
-    min-height: 560px;
-    max-height: 900px;
+    min-height: 520px;
+    max-height: 850px;
     overflow: hidden;
     z-index: 1;
-    will-change: transform;
   }
   .hero .parallax-bg {
     position: absolute;
-    inset: -20% 0;
+    inset: -15% 0;
     z-index: 0;
     will-change: transform;
   }
@@ -91,7 +104,7 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
-    filter: saturate(0.8) brightness(0.55);
+    filter: brightness(0.85) saturate(1.05);
     transform: scale(1.03);
     transition: transform 7s ease;
   }
@@ -101,7 +114,12 @@
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(to bottom, rgba(5,6,9,0.7) 0%, rgba(5,6,9,0.2) 28%, rgba(5,6,9,0.05) 50%, rgba(5,6,9,0.5) 78%, rgba(5,6,9,0.95) 100%);
+      linear-gradient(to bottom,
+        rgba(247,243,234,0.25) 0%,
+        rgba(247,243,234,0.08) 25%,
+        rgba(240,235,224,0.02) 45%,
+        rgba(240,235,224,0.35) 72%,
+        rgba(242,237,228,0.88) 100%);
     z-index: 1;
     pointer-events: none;
   }
@@ -119,42 +137,39 @@
   }
   .hero-content .brand-name {
     font-family: "Cinzel", serif;
-    font-size: clamp(42px, 9vw, 72px);
+    font-size: clamp(38px, 8.5vw, 68px);
     font-weight: 700;
     letter-spacing: 12px;
-    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-bright) 30%, var(--gold) 55%, var(--gold-light) 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 5s linear infinite;
+    color: #fff;
+    text-shadow: 0 2px 24px rgba(140,100,50,0.35), 0 1px 4px rgba(0,0,0,0.15);
     margin-bottom: 12px;
   }
   .hero-content .brand-tagline {
     font-family: "Cinzel", serif;
     font-size: 14px;
-    color: rgba(200, 200, 215, 0.55);
+    color: rgba(255,255,255,0.85);
     letter-spacing: 10px;
     text-transform: uppercase;
     margin-bottom: 40px;
     font-weight: 400;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.2);
   }
   .hero-content .hero-contact {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
-    background: rgba(14, 16, 24, 0.45);
-    backdrop-filter: blur(32px);
-    -webkit-backdrop-filter: blur(32px);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 18px;
+    background: rgba(255,252,246,0.18);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
     padding: 18px 44px;
   }
   .hero-content .hero-contact .contact-label {
     font-family: "Inter", sans-serif;
     font-size: 10px;
-    color: var(--text-dim);
+    color: rgba(255,255,255,0.7);
     letter-spacing: 4px;
     text-transform: uppercase;
     font-weight: 500;
@@ -163,13 +178,14 @@
     font-family: "Cinzel", serif;
     font-size: clamp(18px, 3.5vw, 26px);
     font-weight: 700;
-    color: var(--gold-bright);
+    color: #fff;
     letter-spacing: 5px;
+    text-shadow: 0 0 20px rgba(255,255,255,0.3);
   }
   .hero-content .hero-contact .contact-hint {
     font-family: "Inter", sans-serif;
     font-size: 10px;
-    color: var(--text-dim);
+    color: rgba(255,255,255,0.65);
     letter-spacing: 1px;
     font-weight: 300;
   }
@@ -177,7 +193,7 @@
   /* scroll hint */
   .scroll-hint {
     position: absolute;
-    bottom: 40px;
+    bottom: 32px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
@@ -185,31 +201,29 @@
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    opacity: 0.5;
     animation: float-hint 3s ease-in-out infinite;
   }
   @keyframes float-hint {
-    0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.4; }
-    50%      { transform: translateX(-50%) translateY(10px); opacity: 0.7; }
+    0%, 100% { opacity: 0.35; transform: translateX(-50%) translateY(0); }
+    50%      { opacity: 0.7; transform: translateX(-50%) translateY(8px); }
   }
   .scroll-hint span {
     font-family: "Inter", sans-serif;
     font-size: 9px;
-    color: var(--text-dim);
+    color: rgba(255,255,255,0.6);
     letter-spacing: 3px;
     text-transform: uppercase;
   }
   .scroll-hint .arrow {
     width: 1px;
-    height: 28px;
-    background: linear-gradient(to bottom, var(--gold-dim), transparent);
+    height: 24px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
   }
 
-  /* carousel dots */
   .hero .carousel-dots {
     position: absolute;
-    bottom: 30px;
-    right: 40px;
+    bottom: 28px;
+    right: 36px;
     display: flex;
     gap: 10px;
     z-index: 3;
@@ -219,15 +233,15 @@
     height: 6px;
     border-radius: 50%;
     border: none;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.3);
     cursor: pointer;
     padding: 0;
     transition: background 0.4s, transform 0.4s, box-shadow 0.4s;
   }
   .hero .carousel-dots button.active {
-    background: var(--gold-light);
-    transform: scale(1.4);
-    box-shadow: 0 0 10px rgba(214,191,122,0.4);
+    background: #fff;
+    transform: scale(1.5);
+    box-shadow: 0 0 12px rgba(255,255,255,0.5);
   }
 
   /* ========== CONTAINER ========== */
@@ -240,32 +254,30 @@
   }
 
   /* ========== SECTION ========== */
-  section {
-    margin-bottom: 120px;
-  }
+  section { margin-bottom: 100px; }
 
   .section-heading {
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-bottom: 36px;
+    margin-bottom: 32px;
   }
   .section-heading .section-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 14px;
-    background: rgba(191,155,68,0.08);
-    border: 1px solid rgba(191,155,68,0.12);
+    width: 46px;
+    height: 46px;
+    border-radius: 16px;
+    background: rgba(196,154,74,0.1);
+    border: 1px solid rgba(196,154,74,0.18);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 21px;
     flex-shrink: 0;
   }
   .section-heading .section-text .section-overline {
     font-family: "Inter", sans-serif;
     font-size: 10px;
-    color: var(--gold-dim);
+    color: var(--gold-warm);
     letter-spacing: 3px;
     text-transform: uppercase;
     font-weight: 600;
@@ -282,40 +294,39 @@
   /* ========== SCROLL REVEAL ========== */
   .reveal {
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.9s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transform: translateY(32px);
+    transition: opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
     will-change: transform, opacity;
   }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
   /* ========== CARD ========== */
   .card {
-    background: var(--surface);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    border: 1px solid rgba(255,255,255,0.05);
+    background: var(--card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 32px 32px 28px;
-    margin-bottom: 18px;
-    transition: border-color 0.45s, box-shadow 0.45s, transform 0.45s, background 0.45s;
+    padding: 30px 30px 26px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-card);
+    transition: border-color 0.4s, box-shadow 0.4s, transform 0.4s, background 0.4s;
     position: relative;
     overflow: hidden;
   }
   .card::after {
     content: '';
     position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(135deg, rgba(255,255,255,0.015) 0%, transparent 50%);
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
     pointer-events: none;
+    opacity: 0.4;
   }
   .card:hover {
-    border-color: rgba(255,255,255,0.1);
-    background: var(--surface-hover);
-    box-shadow: 0 12px 48px rgba(0,0,0,0.55), 0 0 80px rgba(191,155,68,0.03);
+    border-color: var(--border-gold);
+    background: var(--card-hover);
+    box-shadow: var(--shadow-hover);
     transform: translateY(-2px);
   }
   .card > .card-title {
@@ -323,7 +334,7 @@
     font-size: 18px;
     font-weight: 600;
     color: var(--text-bright);
-    margin-bottom: 24px;
+    margin-bottom: 22px;
     letter-spacing: 2px;
     display: flex;
     align-items: baseline;
@@ -332,7 +343,7 @@
   .card > .card-title .title-meta {
     font-family: "Inter", sans-serif;
     font-size: 12px;
-    color: var(--gold-dim);
+    color: var(--text-dim);
     font-weight: 400;
     letter-spacing: 0.5px;
   }
@@ -341,21 +352,21 @@
   .table-rows {
     border-radius: var(--radius-sm);
     overflow: hidden;
-    background: rgba(255,255,255,0.01);
+    background: rgba(245,240,230,0.3);
   }
   .table-row {
     display: flex;
     align-items: center;
-    padding: 14px 18px;
+    padding: 13px 18px;
     gap: 14px;
-    border-bottom: 1px solid rgba(255,255,255,0.025);
+    border-bottom: 1px solid rgba(180,160,130,0.1);
     transition: background 0.25s;
   }
   .table-row:last-child { border-bottom: none; }
-  .table-row:hover { background: rgba(255,255,255,0.015); }
+  .table-row:hover { background: rgba(196,154,74,0.04); }
   .table-row.table-row-header {
-    padding: 11px 18px 9px;
-    border-bottom: 1px solid rgba(191,155,68,0.1);
+    padding: 10px 18px 8px;
+    border-bottom: 1px solid rgba(196,154,74,0.2);
     font-family: "Inter", sans-serif;
     font-size: 10px;
     color: var(--text-dim);
@@ -375,7 +386,7 @@
   .table-row .col-price {
     font-family: "Cinzel", serif;
     font-weight: 700;
-    color: var(--gold);
+    color: var(--gold-warm);
     white-space: nowrap;
     font-size: 16px;
     text-align: right;
@@ -398,14 +409,14 @@
 
   /* ========== HIGHLIGHT ========== */
   .highlight-box {
-    margin-top: 22px;
-    padding: 18px 24px;
+    margin-top: 20px;
+    padding: 16px 22px;
     border-radius: var(--radius-sm);
-    background: rgba(191,155,68,0.04);
-    border: 1px solid rgba(191,155,68,0.08);
+    background: rgba(196,154,74,0.06);
+    border: 1px solid rgba(196,154,74,0.12);
     display: flex;
     flex-wrap: wrap;
-    gap: 24px;
+    gap: 22px;
     align-items: center;
   }
   .highlight-box .hl-item {
@@ -415,7 +426,7 @@
   }
   .highlight-box .hl-item span {
     font-family: "Cinzel", serif;
-    color: var(--gold);
+    color: var(--gold-warm);
     font-weight: 700;
     font-size: 18px;
     letter-spacing: 1px;
@@ -428,19 +439,19 @@
     color: var(--tag-text);
     font-family: "Inter", sans-serif;
     font-size: 10px;
-    padding: 2px 9px;
-    border-radius: 5px;
+    padding: 3px 10px;
+    border-radius: 20px;
     font-weight: 600;
     letter-spacing: 0.5px;
     white-space: nowrap;
   }
   .tag-hard {
-    background: rgba(200,88,88,0.1);
+    background: rgba(200,120,120,0.12);
     color: var(--danger);
-    border: 1px solid rgba(200,88,88,0.12);
+    border: 1px solid rgba(200,120,120,0.15);
   }
 
-  /* ========== HORIZONTAL SCROLL CARDS (Season) ========== */
+  /* ========== HORIZONTAL SCROLL CARDS ========== */
   .scroll-row-wrapper {
     position: relative;
     margin: 0 -24px;
@@ -453,17 +464,17 @@
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding: 8px 0 16px;
+    padding: 6px 0 14px;
     scroll-behavior: smooth;
   }
   .scroll-row::-webkit-scrollbar { display: none; }
   .scroll-row .scroll-card {
     flex: 0 0 auto;
-    width: 200px;
+    width: 195px;
     scroll-snap-align: start;
-    background: var(--surface-alt);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    background: var(--card-alt);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     padding: 18px 16px 16px;
@@ -471,34 +482,31 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 10px;
+    box-shadow: 0 2px 16px rgba(160,140,100,0.08);
     transition: border-color 0.35s, box-shadow 0.35s, transform 0.35s, background 0.35s;
   }
   .scroll-row .scroll-card:hover {
-    border-color: rgba(255,255,255,0.08);
-    background: var(--surface-hover);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    border-color: var(--border-gold);
+    background: var(--card-hover);
+    box-shadow: 0 6px 28px rgba(160,140,100,0.16);
     transform: translateY(-2px);
   }
   .scroll-card .sc-name {
     font-weight: 600;
     color: var(--text-bright);
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.3;
   }
-  .scroll-card .sc-detail {
-    font-size: 11px;
-    color: var(--text-dim);
-  }
+  .scroll-card .sc-detail { font-size: 11px; color: var(--text-dim); }
   .scroll-card .sc-price {
     font-family: "Cinzel", serif;
     font-weight: 700;
-    color: var(--gold);
+    color: var(--gold-warm);
     font-size: 22px;
     letter-spacing: 1px;
     align-self: flex-end;
   }
 
-  /* scroll arrows */
   .scroll-arrows {
     position: absolute;
     top: 50%;
@@ -509,60 +517,61 @@
     z-index: 2;
     display: flex;
     justify-content: space-between;
-    padding: 0 8px;
+    padding: 0 6px;
   }
   .scroll-arrows button {
     pointer-events: auto;
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.1);
-    background: rgba(14,16,24,0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(180,160,130,0.25);
+    background: rgba(255,252,246,0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     color: var(--text-bright);
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background 0.3s, border-color 0.3s, transform 0.3s;
+    box-shadow: 0 2px 12px rgba(160,140,100,0.1);
     line-height: 1;
   }
   .scroll-arrows button:hover {
-    background: rgba(24,27,37,0.9);
-    border-color: rgba(255,255,255,0.18);
+    background: rgba(255,252,246,0.95);
+    border-color: var(--border-gold);
     transform: scale(1.08);
   }
 
   /* ========== DIVIDER ========== */
   .divider-line {
     display: block;
-    width: 60px;
+    width: 50px;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(191,155,68,0.3), transparent);
-    margin: 0 auto 48px;
+    background: linear-gradient(90deg, transparent, rgba(196,154,74,0.35), transparent);
+    margin: 0 auto 44px;
   }
 
   /* ========== FOOTER ========== */
   .footer {
     text-align: center;
-    padding: 60px 20px 40px;
+    padding: 56px 20px 36px;
     margin-top: 40px;
     position: relative;
     z-index: 1;
   }
   .footer .footer-divider {
-    width: 40px;
+    width: 36px;
     height: 1px;
-    background: rgba(191,155,68,0.25);
-    margin: 0 auto 32px;
+    background: rgba(196,154,74,0.3);
+    margin: 0 auto 30px;
   }
   .footer .footer-brand {
     font-family: "Cinzel", serif;
     font-size: 16px;
     font-weight: 600;
-    color: var(--gold-dim);
+    color: var(--gold-warm);
     letter-spacing: 4px;
     margin-bottom: 10px;
   }
@@ -588,65 +597,62 @@
     letter-spacing: 1px;
     transition: color 0.3s;
   }
-  .footer .footer-links a:hover { color: var(--gold-light); }
+  .footer .footer-links a:hover { color: var(--gold-warm); }
   .footer .footer-copy {
-    margin-top: 28px;
+    margin-top: 26px;
     font-family: "Inter", sans-serif;
     font-size: 10px;
-    color: rgba(92,94,108,0.5);
+    color: rgba(155,145,128,0.5);
     letter-spacing: 2px;
   }
 
   /* ========== RESPONSIVE ========== */
   @media (max-width: 768px) {
-    .hero {
-      height: 520px;
-      min-height: auto;
-    }
+    .hero { height: 480px; min-height: auto; }
     .hero-content .brand-name { letter-spacing: 6px; }
-    .hero-content .brand-tagline { letter-spacing: 6px; margin-bottom: 28px; }
+    .hero-content .brand-tagline { letter-spacing: 6px; margin-bottom: 26px; font-size: 12px; }
     .hero-content .hero-contact { padding: 14px 30px; }
-    section { margin-bottom: 80px; }
+    section { margin-bottom: 70px; }
     .section-heading .section-text .section-title { font-size: 22px; letter-spacing: 2px; }
-    .card { padding: 22px 18px; border-radius: 16px; }
-    .card > .card-title { font-size: 16px; margin-bottom: 18px; }
-    .table-row { padding: 12px 14px; gap: 10px; }
+    .card { padding: 22px 18px; border-radius: 22px; }
+    .card > .card-title { font-size: 16px; margin-bottom: 16px; }
+    .table-row { padding: 11px 14px; gap: 10px; }
     .table-row .col-name { font-size: 13px; }
     .table-row .col-price { font-size: 14px; min-width: 40px; }
-    .table-row .col-note { flex: 0 0 105px; font-size: 11px; }
-    .table-row .col-count { font-size: 12px; min-width: 40px; }
-    .highlight-box { padding: 14px 16px; gap: 16px; }
+    .table-row .col-note { flex: 0 0 100px; font-size: 11px; }
+    .highlight-box { padding: 14px 16px; gap: 14px; }
     .highlight-box .hl-item { font-size: 13px; }
     .highlight-box .hl-item span { font-size: 16px; }
-    .scroll-row .scroll-card { width: 170px; }
+    .scroll-row .scroll-card { width: 168px; }
     .scroll-card .sc-price { font-size: 19px; }
-    .hero .carousel-dots { right: 20px; bottom: 20px; }
+    .hero .carousel-dots { right: 18px; bottom: 18px; }
     .container { padding: 0 16px 80px; }
     .scroll-row-wrapper { margin: 0 -16px; padding: 0 16px; }
   }
   @media (max-width: 480px) {
-    .hero { height: 420px; min-height: auto; }
-    .hero-content .brand-name { font-size: 30px; letter-spacing: 3px; }
-    .hero-content .brand-tagline { font-size: 10px; letter-spacing: 4px; margin-bottom: 20px; }
-    .hero-content .hero-contact { padding: 12px 22px; border-radius: 14px; }
+    .hero { height: 380px; min-height: auto; }
+    .hero-content .brand-name { font-size: 28px; letter-spacing: 3px; }
+    .hero-content .brand-tagline { font-size: 10px; letter-spacing: 3px; margin-bottom: 18px; }
+    .hero-content .hero-contact { padding: 12px 22px; border-radius: 16px; }
     .hero-content .hero-contact .contact-id { font-size: 16px; letter-spacing: 3px; }
-    .scroll-hint { bottom: 22px; }
-    section { margin-bottom: 60px; }
-    .card { padding: 18px 14px; border-radius: 14px; }
-    .card > .card-title { font-size: 15px; }
+    .scroll-hint { bottom: 20px; }
+    section { margin-bottom: 50px; }
+    .card { padding: 16px 14px; border-radius: 18px; }
+    .card > .card-title { font-size: 14px; }
     .section-heading .section-text .section-title { font-size: 19px; }
-    .section-heading .section-icon { width: 36px; height: 36px; font-size: 17px; }
-    .table-row { padding: 10px 12px; gap: 6px; flex-wrap: wrap; }
-    .table-row.table-row-header { font-size: 9px; padding: 8px 12px 6px; letter-spacing: 1px; }
-    .table-row .col-note { flex: 1 1 100%; text-align: left; padding-top: 3px; border-top: 1px solid rgba(255,255,255,0.02); margin-top: 4px; }
-    .highlight-box { gap: 10px; }
+    .section-heading .section-icon { width: 38px; height: 38px; font-size: 18px; }
+    .table-row { padding: 10px 10px; gap: 6px; flex-wrap: wrap; }
+    .table-row.table-row-header { font-size: 9px; padding: 7px 10px 5px; letter-spacing: 1px; }
+    .table-row .col-note { flex: 1 1 100%; text-align: left; padding-top: 3px; border-top: 1px solid rgba(180,160,130,0.08); margin-top: 3px; }
+    .highlight-box { gap: 8px; }
+    .highlight-box .hl-item { font-size: 12px; }
     .highlight-box .hl-item span { font-size: 14px; }
-    .scroll-row .scroll-card { width: 155px; padding: 14px 12px 12px; }
+    .scroll-row .scroll-card { width: 150px; padding: 14px 12px 12px; }
     .scroll-card .sc-name { font-size: 13px; }
     .scroll-card .sc-price { font-size: 17px; }
-    .footer { padding: 40px 16px 30px; }
-    .footer .footer-links { gap: 20px; }
-    .hero .carousel-dots { right: 16px; bottom: 16px; gap: 8px; }
+    .footer { padding: 36px 16px 26px; }
+    .footer .footer-links { gap: 18px; }
+    .hero .carousel-dots { right: 14px; bottom: 14px; gap: 8px; }
     .hero .carousel-dots button { width: 5px; height: 5px; }
   }
 </style>
@@ -686,7 +692,7 @@
 <!-- ==================== CONTENT ==================== -->
 <div class="container">
 
-  <span class="divider-line" style="margin-bottom:24px;"></span>
+  <span class="divider-line" style="margin-bottom:16px;"></span>
 
   <!-- ====== 代找先祖 ====== -->
   <section>
@@ -709,18 +715,18 @@
         <div class="table-row">
           <span class="col-name">全图先祖</span>
           <span class="col-count">127 个</span>
-          <span class="col-price">150R</span>
+          <span class="col-price">118R</span>
         </div>
         <div class="table-row">
           <span class="col-name">全图常驻先祖</span>
           <span class="col-count">37 个</span>
-          <span class="col-price">40R</span>
+          <span class="col-price">30R</span>
         </div>
       </div>
     </div>
 
     <div class="card reveal">
-      <div class="card-title">各季节先祖 <span class="title-meta">共 90 个 · 全包 129R</span></div>
+      <div class="card-title">各季节先祖 <span class="title-meta">共 90 个 · 全包 98R</span></div>
       <div class="scroll-row-wrapper" id="seasonScrollWrapper">
         <div class="scroll-arrows">
           <button id="seasonScrollLeft" aria-label="向左滚动">&#x2039;</button>
@@ -729,71 +735,71 @@
         <div class="scroll-row" id="seasonScroll">
           <div class="scroll-card">
             <div><span class="sc-name">感恩季</span><span class="sc-detail"> 6个 (4运光2追光)</span></div>
-            <span class="sc-price">10R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">追光季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个 (5运光1追光)</span></div>
-            <span class="sc-price">14R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">归属季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个 (2运光4追光)</span></div>
-            <span class="sc-price">12R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">音韵季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个 (3运光3追光)</span></div>
-            <span class="sc-price">12R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">魔法季</span><span class="sc-detail"> 6个 (5运光1追光)</span></div>
-            <span class="sc-price">11R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">圣岛季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个 (2运光4追光)</span></div>
-            <span class="sc-price">12R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">预言季</span><span class="sc-detail"> 4个 (4追光)</span></div>
-            <span class="sc-price">4R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">梦想季</span><span class="sc-detail"> 4个 (1运光3追光)</span></div>
-            <span class="sc-price">5R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">集结季</span><span class="sc-detail"> 6个 (6追光)</span></div>
-            <span class="sc-price">6R</span>
-          </div>
-          <div class="scroll-card">
-            <div><span class="sc-name">小王子季</span><span class="sc-detail"> 6个 (2运光4追光)</span></div>
             <span class="sc-price">8R</span>
           </div>
           <div class="scroll-card">
-            <div><span class="sc-name">风行季</span><span class="sc-detail"> 4个 (4追光)</span></div>
+            <div><span class="sc-name">追光季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个 (5运光1追光)</span></div>
+            <span class="sc-price">11R</span>
+          </div>
+          <div class="scroll-card">
+            <div><span class="sc-name">归属季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个 (2运光4追光)</span></div>
+            <span class="sc-price">9R</span>
+          </div>
+          <div class="scroll-card">
+            <div><span class="sc-name">音韵季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个 (3运光3追光)</span></div>
+            <span class="sc-price">9R</span>
+          </div>
+          <div class="scroll-card">
+            <div><span class="sc-name">魔法季</span><span class="sc-detail"> 6个 (5运光1追光)</span></div>
+            <span class="sc-price">9R</span>
+          </div>
+          <div class="scroll-card">
+            <div><span class="sc-name">圣岛季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个 (2运光4追光)</span></div>
+            <span class="sc-price">9R</span>
+          </div>
+          <div class="scroll-card">
+            <div><span class="sc-name">预言季</span><span class="sc-detail"> 4个 (4追光)</span></div>
+            <span class="sc-price">3R</span>
+          </div>
+          <div class="scroll-card">
+            <div><span class="sc-name">梦想季</span><span class="sc-detail"> 4个 (1运光3追光)</span></div>
             <span class="sc-price">4R</span>
+          </div>
+          <div class="scroll-card">
+            <div><span class="sc-name">集结季</span><span class="sc-detail"> 6个 (6追光)</span></div>
+            <span class="sc-price">5R</span>
+          </div>
+          <div class="scroll-card">
+            <div><span class="sc-name">小王子季</span><span class="sc-detail"> 6个 (2运光4追光)</span></div>
+            <span class="sc-price">6R</span>
+          </div>
+          <div class="scroll-card">
+            <div><span class="sc-name">风行季</span><span class="sc-detail"> 4个 (4追光)</span></div>
+            <span class="sc-price">3R</span>
           </div>
           <div class="scroll-card">
             <div><span class="sc-name">潜海季</span><span class="sc-detail"> 4个 (4追光)</span></div>
-            <span class="sc-price">4R</span>
+            <span class="sc-price">3R</span>
           </div>
           <div class="scroll-card">
             <div><span class="sc-name">表演季</span><span class="sc-detail"> 4个 (4追光)</span></div>
-            <span class="sc-price">4R</span>
+            <span class="sc-price">3R</span>
           </div>
           <div class="scroll-card">
             <div><span class="sc-name">追忆季</span><span class="sc-detail"> 4个 (4追光)</span></div>
-            <span class="sc-price">4R</span>
+            <span class="sc-price">3R</span>
           </div>
           <div class="scroll-card">
             <div><span class="sc-name">夜行季</span><span class="sc-detail"> 4个 (4追光)</span></div>
-            <span class="sc-price">4R</span>
+            <span class="sc-price">3R</span>
           </div>
           <div class="scroll-card">
             <div><span class="sc-name">拾光季</span><span class="sc-detail"> 4个 (4追光)</span></div>
-            <span class="sc-price">4R</span>
+            <span class="sc-price">3R</span>
           </div>
           <div class="scroll-card">
             <div><span class="sc-name">九色鹿季</span><span class="sc-detail"> 4个 (4追光)</span></div>
-            <span class="sc-price">4R</span>
+            <span class="sc-price">3R</span>
           </div>
           <div class="scroll-card">
             <div><span class="sc-name">姆明季</span><span class="sc-detail"> 1个 (1任务)</span></div>
@@ -801,7 +807,7 @@
           </div>
           <div class="scroll-card">
             <div><span class="sc-name">青鸟季</span><span class="sc-detail"> 4个 (4追光)</span></div>
-            <span class="sc-price">4R</span>
+            <span class="sc-price">3R</span>
           </div>
           <div class="scroll-card">
             <div><span class="sc-name">迁徙季</span><span class="sc-detail"> 1个 (1叫声)</span></div>
@@ -837,17 +843,17 @@
           <span class="col-price">包月</span>
           <span class="col-note">备注</span>
         </div>
-        <div class="table-row"><span class="col-name">晨岛</span><span class="col-price">1R</span><span class="col-price">5R</span><span class="col-price">20R</span><span class="col-note">不包试炼</span></div>
-        <div class="table-row"><span class="col-name">云野</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note"></span></div>
-        <div class="table-row"><span class="col-name">雨林</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note">不包风行网道</span></div>
-        <div class="table-row"><span class="col-name">霞谷</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note">不包雪隐峰赛道</span></div>
-        <div class="table-row"><span class="col-name">暮土</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note">大花随缘</span></div>
-        <div class="table-row"><span class="col-name">禁阁</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note"></span></div>
+        <div class="table-row"><span class="col-name">晨岛</span><span class="col-price">1R</span><span class="col-price">4R</span><span class="col-price">16R</span><span class="col-note">不包试炼</span></div>
+        <div class="table-row"><span class="col-name">云野</span><span class="col-price">2R</span><span class="col-price">14R</span><span class="col-price">48R</span><span class="col-note"></span></div>
+        <div class="table-row"><span class="col-name">雨林</span><span class="col-price">2R</span><span class="col-price">14R</span><span class="col-price">48R</span><span class="col-note">不包风行网道</span></div>
+        <div class="table-row"><span class="col-name">霞谷</span><span class="col-price">2R</span><span class="col-price">14R</span><span class="col-price">48R</span><span class="col-note">不包雪隐峰赛道</span></div>
+        <div class="table-row"><span class="col-name">暮土</span><span class="col-price">2R</span><span class="col-price">14R</span><span class="col-price">48R</span><span class="col-note">大花随缘</span></div>
+        <div class="table-row"><span class="col-name">禁阁</span><span class="col-price">2R</span><span class="col-price">14R</span><span class="col-price">48R</span><span class="col-note"></span></div>
       </div>
       <div class="highlight-box">
-        <div class="hl-item">全图一天 <span>12R</span></div>
-        <div class="hl-item">全图包周 <span>84R</span></div>
-        <div class="hl-item">全图包月 <span>360R</span></div>
+        <div class="hl-item">全图一天 <span>9R</span></div>
+        <div class="hl-item">全图包周 <span>65R</span></div>
+        <div class="hl-item">全图包月 <span>280R</span></div>
         <span class="tag">全图包月送每日任务</span>
       </div>
     </div>
@@ -861,8 +867,8 @@
           <span class="col-price">包周</span>
           <span class="col-price">包月</span>
         </div>
-        <div class="table-row"><span class="col-name">每日任务</span><span class="col-price">1R</span><span class="col-price">7R</span><span class="col-price">27R</span></div>
-        <div class="table-row"><span class="col-name">每日任务 + 季蜡</span><span class="col-price">2R</span><span class="col-price">14R</span><span class="col-price">50R</span></div>
+        <div class="table-row"><span class="col-name">每日任务</span><span class="col-price">1R</span><span class="col-price">5R</span><span class="col-price">20R</span></div>
+        <div class="table-row"><span class="col-name">每日任务 + 季蜡</span><span class="col-price">2R</span><span class="col-price">11R</span><span class="col-price">40R</span></div>
       </div>
     </div>
 
@@ -876,18 +882,18 @@
           <span class="col-price">包月</span>
           <span class="col-note">备注</span>
         </div>
-        <div class="table-row"><span class="col-name">5 根</span><span class="col-price">2R</span><span class="col-price">12R</span><span class="col-price">50R</span><span class="col-note"></span></div>
-        <div class="table-row"><span class="col-name">10 根</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">80R</span><span class="col-note"></span></div>
-        <div class="table-row"><span class="col-name">15 根</span><span class="col-price">5R</span><span class="col-price">31R</span><span class="col-price">140R</span><span class="col-note"></span></div>
-        <div class="table-row"><span class="col-name">20 根</span><span class="col-price">10R</span><span class="col-price">60R</span><span class="col-price">270R</span><span class="col-note">包月送每日任务 15 次</span></div>
+        <div class="table-row"><span class="col-name">5 根</span><span class="col-price">2R</span><span class="col-price">10R</span><span class="col-price">40R</span><span class="col-note"></span></div>
+        <div class="table-row"><span class="col-name">10 根</span><span class="col-price">2R</span><span class="col-price">14R</span><span class="col-price">60R</span><span class="col-note"></span></div>
+        <div class="table-row"><span class="col-name">15 根</span><span class="col-price">4R</span><span class="col-price">24R</span><span class="col-price">110R</span><span class="col-note"></span></div>
+        <div class="table-row"><span class="col-name">20 根</span><span class="col-price">8R</span><span class="col-price">48R</span><span class="col-price">210R</span><span class="col-note">包月送每日任务 15 次</span></div>
       </div>
     </div>
 
     <div class="card reveal">
       <div class="card-title">&#x1F341; 季节包毕业 <span class="title-meta">（季卡自买）</span></div>
       <div class="highlight-box" style="margin-top:0;">
-        <div class="hl-item">有卡包毕业 <span>100R</span></div>
-        <div class="hl-item">无卡包毕业 <span>110R</span></div>
+        <div class="hl-item">有卡包毕业 <span>80R</span></div>
+        <div class="hl-item">无卡包毕业 <span>88R</span></div>
       </div>
     </div>
 
@@ -899,10 +905,10 @@
           <span class="col-price">价格</span>
           <span class="col-note">备注</span>
         </div>
-        <div class="table-row"><span class="col-name">开全图</span><span class="col-price">15R</span><span class="col-note"></span></div>
-        <div class="table-row"><span class="col-name">小金人</span><span class="col-price">20R</span><span class="col-note">不包试炼和破晓季</span></div>
-        <div class="table-row"><span class="col-name">献祭</span><span class="col-price">7R</span><span class="col-note"></span></div>
-        <div class="table-row"><span class="col-name">代币</span><span class="col-price">1.5R/天 或 15R/全物品</span><span class="col-note"></span></div>
+        <div class="table-row"><span class="col-name">开全图</span><span class="col-price">12R</span><span class="col-note"></span></div>
+        <div class="table-row"><span class="col-name">小金人</span><span class="col-price">16R</span><span class="col-note">不包试炼和破晓季</span></div>
+        <div class="table-row"><span class="col-name">献祭</span><span class="col-price">5R</span><span class="col-note"></span></div>
+        <div class="table-row"><span class="col-name">代币</span><span class="col-price">1R/天 或 12R/全物品</span><span class="col-note"></span></div>
         <div class="table-row"><span class="col-name">烧红石</span><span class="col-price">2R/次</span><span class="col-note"></span></div>
       </div>
     </div>
@@ -929,7 +935,7 @@
   var ctx = canvas.getContext('2d');
   var w, h;
   var particles = [];
-  var count = 50;
+  var count = 35;
 
   function resize() {
     w = canvas.width = window.innerWidth;
@@ -942,10 +948,10 @@
     particles.push({
       x: Math.random() * w,
       y: Math.random() * h,
-      r: Math.random() * 2 + 0.5,
-      speed: Math.random() * 0.4 + 0.15,
-      opacity: Math.random() * 0.35 + 0.1,
-      drift: (Math.random() - 0.5) * 0.3
+      r: Math.random() * 2 + 0.3,
+      speed: Math.random() * 0.35 + 0.1,
+      opacity: Math.random() * 0.25 + 0.06,
+      drift: (Math.random() - 0.5) * 0.2
     });
   }
 
@@ -960,7 +966,7 @@
       if (p.x > w + 10) p.x = -10;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(214,191,122,' + p.opacity + ')';
+      ctx.fillStyle = 'rgba(196,154,74,' + p.opacity + ')';
       ctx.fill();
     }
     requestAnimationFrame(draw);
@@ -975,7 +981,6 @@
   var dots = document.querySelectorAll('#carouselDots button');
   var current = 0;
   var total = slides.length;
-  var carouselInterval = 5000;
 
   function goTo(index) {
     slides[current].classList.remove('active');
@@ -985,19 +990,18 @@
     dots[current].classList.add('active');
   }
 
-  dots.forEach(function(dot) {
-    dot.addEventListener('click', function() { goTo(parseInt(dot.dataset.index)); });
+  dots.forEach(function(d) {
+    d.addEventListener('click', function() { goTo(parseInt(d.dataset.index)); });
   });
 
-  setInterval(function() { goTo(current + 1); }, carouselInterval);
+  setInterval(function() { goTo(current + 1); }, 5000);
 
-  /* parallax */
   var hero = document.getElementById('heroCarousel');
   function parallax() {
     var scrollY = window.pageYOffset || document.documentElement.scrollTop;
     var heroH = hero.offsetHeight;
     if (scrollY < heroH) {
-      bg.style.transform = 'translateY(' + (scrollY * 0.35) + 'px)';
+      bg.style.transform = 'translateY(' + (scrollY * 0.3) + 'px)';
     }
   }
   window.addEventListener('scroll', parallax, {passive: true});
@@ -1007,42 +1011,37 @@
 (function() {
   var reveals = document.querySelectorAll('.reveal');
   var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+  }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
 
   reveals.forEach(function(el) { observer.observe(el); });
 })();
 
-/* ====== HORIZONTAL SCROLL CARDS ====== */
+/* ====== HORIZONTAL SCROLL ====== */
 (function() {
   var row = document.getElementById('seasonScroll');
   if (!row) return;
   var btnLeft = document.getElementById('seasonScrollLeft');
   var btnRight = document.getElementById('seasonScrollRight');
-  var scrollAmount = 220;
+  var amount = 210;
 
-  btnLeft.addEventListener('click', function() {
-    row.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-  });
-  btnRight.addEventListener('click', function() {
-    row.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-  });
+  btnLeft.addEventListener('click', function() { row.scrollBy({ left: -amount, behavior: 'smooth' }); });
+  btnRight.addEventListener('click', function() { row.scrollBy({ left: amount, behavior: 'smooth' }); });
 
-  /* hide arrows if no overflow */
-  function checkArrows() {
-    var hasOverflow = row.scrollWidth > row.clientWidth + 2;
-    btnLeft.style.opacity = hasOverflow ? '1' : '0';
-    btnRight.style.opacity = hasOverflow ? '1' : '0';
-    btnLeft.style.pointerEvents = hasOverflow ? 'auto' : 'none';
-    btnRight.style.pointerEvents = hasOverflow ? 'auto' : 'none';
+  function check() {
+    var overflow = row.scrollWidth > row.clientWidth + 2;
+    btnLeft.style.opacity = overflow ? '1' : '0';
+    btnRight.style.opacity = overflow ? '1' : '0';
+    btnLeft.style.pointerEvents = overflow ? 'auto' : 'none';
+    btnRight.style.pointerEvents = overflow ? 'auto' : 'none';
   }
-  checkArrows();
-  window.addEventListener('resize', checkArrows);
+  check();
+  window.addEventListener('resize', check);
 })();
 </script>
 </body>
