@@ -604,36 +604,125 @@
     background: linear-gradient(90deg, transparent, rgba(196,154,74,0.35), transparent);
     margin: 0 auto 44px;
   }
-  /* ========== MUSIC PLAYER ========== */
-  .music-player {
-    max-width: 500px;
-    margin: 0 auto 50px;
-    padding: 0 16px;
+  /* ========== FLOATING MUSIC BUTTON ========== */
+  #bgmFrame {
+    position: fixed;
+    width: 1px; height: 1px;
+    top: -10px; left: -10px;
+    opacity: 0; pointer-events: none;
   }
-  .music-hint {
-    text-align: center;
-    font-size: 12px;
-    color: var(--text-dim);
-    margin-bottom: 10px;
-    letter-spacing: 1px;
+  .music-float {
+    position: fixed;
+    bottom: 32px; right: 28px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
   }
-  .music-player-inner {
+  .mf-btn {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-gold);
+    background: rgba(255,252,246,0.85);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 3px 22px rgba(180,150,110,0.2);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1),
+                box-shadow 0.35s, background 0.35s;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mf-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px rgba(180,150,110,0.32);
+  }
+  .mf-btn::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 2px solid var(--gold-bright);
+    opacity: 0;
+    animation: none;
+  }
+  .music-float.playing .mf-btn::before {
+    opacity: 1;
+    animation: mf-pulse 2.2s ease-out infinite;
+  }
+  @keyframes mf-pulse {
+    0%   { transform: scale(0.85); opacity: 0.55; }
+    100% { transform: scale(1.3); opacity: 0; }
+  }
+  .mf-icon {
+    font-size: 19px;
+    color: var(--gold-warm);
+    line-height: 1;
+    transition: transform 0.35s;
+  }
+  .music-float.playing .mf-icon {
+    animation: mf-bounce 1.5s ease-in-out infinite;
+  }
+  @keyframes mf-bounce {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-3px); }
+  }
+  .mf-panel {
+    display: flex; flex-direction: column;
+    align-items: flex-end; gap: 7px;
     background: var(--card);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 12px 16px 8px;
+    border-radius: 16px;
+    padding: 14px 20px;
     box-shadow: var(--shadow-card);
-    transition: border-color 0.4s, box-shadow 0.4s;
+    opacity: 0;
+    transform: translateY(10px) scale(0.94);
+    pointer-events: none;
+    transition: opacity 0.32s cubic-bezier(0.4,0,0.2,1),
+                transform 0.32s cubic-bezier(0.4,0,0.2,1);
   }
-  .music-player-inner:hover {
-    border-color: var(--border-gold);
-    box-shadow: var(--shadow-hover);
+  .music-float.expanded .mf-panel {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
   }
-  .music-player-inner iframe {
-    display: block;
-    border-radius: 12px;
+  .mf-title {
+    font-size: 13px; font-weight: 600;
+    color: var(--text-bright);
+    white-space: nowrap;
+    letter-spacing: 1px;
+  }
+  .mf-status {
+    font-size: 11px; color: var(--text-dim);
+    transition: color 0.35s;
+  }
+  .mf-toggle {
+    margin-top: 3px;
+    padding: 5px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--border-gold);
+    background: rgba(196,154,74,0.07);
+    color: var(--gold-warm);
+    font-size: 11px; font-weight: 500;
+    cursor: pointer;
+    font-family: "Inter", sans-serif;
+    letter-spacing: 1px;
+    transition: background 0.3s, color 0.3s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mf-toggle:hover {
+    background: rgba(196,154,74,0.16);
+  }
+  @media (max-width: 480px) {
+    .music-float { bottom: 20px; right: 16px; }
+    .mf-btn { width: 40px; height: 40px; }
+    .mf-icon { font-size: 17px; }
+    .mf-panel { padding: 12px 16px; border-radius: 14px; }
+    .mf-title { font-size: 12px; }
   }
 
   /* ========== FOOTER ========== */
@@ -1343,14 +1432,18 @@
     </div>
   </section>
 
-  <!-- ====== 网易云歌单 ====== -->
-  <div class="music-player">
-    <p class="music-hint">🎵 边听光遇BGM边浏览</p>
-    <div class="music-player-inner">
-      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0"
-        width="100%" height="90"
-        src="https://music.163.com/outchain/player?type=0&id=2180048146&auto=0&height=90">
-      </iframe>
+  <!-- ====== 背景音乐 ====== -->
+  <iframe id="bgmFrame"
+    src="https://music.163.com/outchain/player?type=0&id=2180048146&auto=1&height=0">
+  </iframe>
+  <div class="music-float playing" id="musicFloat">
+    <button class="mf-btn" id="mfBtn" title="音乐控制">
+      <span class="mf-icon">♪</span>
+    </button>
+    <div class="mf-panel" id="mfPanel">
+      <span class="mf-title">光遇 · 原声歌单</span>
+      <span class="mf-status" id="mfStatus">正在播放</span>
+      <button class="mf-toggle" id="mfToggle">暂停</button>
     </div>
   </div>
 
@@ -1511,6 +1604,46 @@ function copyContact(el) {
     done();
   }
 }
+
+
+/* ====== FLOATING MUSIC ====== */
+(function() {
+  var float = document.getElementById('musicFloat');
+  var btn = document.getElementById('mfBtn');
+  var toggle = document.getElementById('mfToggle');
+  var statusEl = document.getElementById('mfStatus');
+  var frame = document.getElementById('bgmFrame');
+  if (!float || !frame) return;
+
+  var playing = true;
+  var baseSrc = 'https://music.163.com/outchain/player?type=0&id=2180048146';
+
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    float.classList.toggle('expanded');
+  });
+
+  toggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (playing) {
+      frame.src = baseSrc + '&auto=0&height=0';
+      playing = false;
+      float.classList.remove('playing');
+      statusEl.textContent = '已暂停';
+      toggle.textContent = '播放';
+    } else {
+      frame.src = baseSrc + '&auto=1&height=0';
+      playing = true;
+      float.classList.add('playing');
+      statusEl.textContent = '正在播放';
+      toggle.textContent = '暂停';
+    }
+  });
+
+  document.addEventListener('click', function() {
+    float.classList.remove('expanded');
+  });
+})();
 
 </script>
 </body>
