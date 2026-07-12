@@ -149,6 +149,43 @@
   .service-dot:hover .sd-icon { transform:scale(1.15); }
   .service-dot .sd-label { font-family:"Inter",sans-serif; font-size:12px; color:var(--text-bright); font-weight:500; letter-spacing:1.5px; }
 
+  /* TABLE */
+  .table-rows { border-radius:var(--radius-sm); overflow:hidden; background:rgba(255,255,255,0.01); }
+  .table-row { display:flex; align-items:center; padding:14px 18px; gap:14px; border-bottom:1px solid rgba(255,255,255,0.025); transition:background 0.25s; }
+  .table-row:last-child { border-bottom:none; }
+  .table-row:hover { background:rgba(255,255,255,0.015); }
+  .table-row.table-row-header { padding:11px 18px 9px; border-bottom:1px solid var(--border-gold); font-family:"Inter",sans-serif; font-size:10px; color:var(--text-dim); letter-spacing:2px; font-weight:600; text-transform:uppercase; background:transparent; }
+  .table-row.table-row-header:hover { background:transparent; }
+  .table-row .col-name { flex:1; font-weight:500; color:var(--text-bright); font-size:14px; min-width:0; }
+  .table-row .col-price { font-family:"Cinzel",serif; font-weight:700; color:var(--gold); white-space:nowrap; font-size:16px; text-align:right; min-width:48px; letter-spacing:1px; }
+  .table-row .col-note { font-size:12px; color:var(--text-dim); flex:0 0 140px; text-align:right; font-style:italic; }
+  .table-row .col-count { font-size:13px; color:var(--text); text-align:right; min-width:50px; }
+  .card > .card-title .title-meta { font-family:"Inter",sans-serif; font-size:12px; color:var(--gold-warm); font-weight:400; letter-spacing:0.5px; }
+  .tag-hard { background:rgba(200,88,88,0.1); color:var(--danger); border:1px solid rgba(200,88,88,0.12); }
+
+  /* SCROLL ROW */
+  .scroll-row-wrapper { position:relative; margin:0 -24px; padding:0 24px; }
+  .scroll-row { display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding:8px 0 16px; scroll-behavior:smooth; }
+  .scroll-row::-webkit-scrollbar { display:none; }
+  .scroll-row .scroll-card { flex:0 0 auto; width:200px; scroll-snap-align:start; background:var(--card-alt); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1px solid var(--border); border-radius:var(--radius-sm); padding:18px 16px 16px; display:flex; flex-direction:column; justify-content:space-between; gap:10px; transition:border-color 0.35s,box-shadow 0.35s,transform 0.35s,background 0.35s; }
+  .scroll-row .scroll-card:hover { border-color:rgba(255,255,255,0.08); background:var(--card-hover); box-shadow:var(--shadow-hover); transform:translateY(-2px); }
+  .scroll-card .sc-name { font-weight:600; color:var(--text-bright); font-size:15px; line-height:1.3; }
+  .scroll-card .sc-detail { font-size:11px; color:var(--text-dim); }
+  .scroll-card .sc-price { font-family:"Cinzel",serif; font-weight:700; color:var(--gold); font-size:22px; letter-spacing:1px; align-self:flex-end; }
+  .scroll-arrows { position:absolute; top:50%; left:0; right:0; transform:translateY(-50%); pointer-events:none; z-index:2; display:flex; justify-content:space-between; padding:0 8px; }
+  .scroll-arrows button { pointer-events:auto; width:40px; height:40px; border-radius:50%; border:1px solid rgba(255,255,255,0.1); background:rgba(14,16,24,0.75); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); color:var(--text-bright); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.3s,border-color 0.3s,transform 0.3s; }
+  .scroll-arrows button:hover { background:rgba(24,27,37,0.9); border-color:rgba(255,255,255,0.18); transform:scale(1.08); }
+
+  /* ACCORDION */
+  .accordion-item { border-bottom:1px solid var(--border); }
+  .accordion-item:last-child { border-bottom:none; }
+  .accordion-header { display:flex; align-items:center; justify-content:space-between; padding:16px 0; cursor:pointer; font-weight:600; color:var(--text-bright); font-size:15px; transition:color 0.3s; -webkit-tap-highlight-color:transparent; }
+  .accordion-header:hover { color:var(--gold-light); }
+  .accordion-header .acc-icon { font-size:12px; transition:transform 0.3s; color:var(--gold); }
+  .accordion-item.open .acc-icon { transform:rotate(180deg); }
+  .accordion-body { max-height:0; overflow:hidden; transition:max-height 0.4s ease; font-size:14px; color:var(--text); line-height:1.8; }
+  .accordion-body-inner { padding:0 0 18px; }
+
   /* FOOTER */
   .footer { text-align:center; padding:56px 20px 36px; margin-top:40px; position:relative; z-index:1; }
   .footer .footer-divider { width:36px; height:1px; background:rgba(196,154,74,0.3); margin:0 auto 30px; }
@@ -195,7 +232,6 @@
     <a href="index.html" class="nav-brand">小羊代肝</a>
     <div class="nav-links">
       <a href="index.html" class="active">首页</a>
-      <a href="pricing.html">价格</a>
       <a href="about.html">关于</a>
       <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
     </div>
@@ -241,6 +277,134 @@
   <div class="container">
 
     <span class="divider-line" style="display:block;width:60px;height:1px;background:linear-gradient(90deg,transparent,rgba(196,154,74,0.35),transparent);margin:0 auto 44px;"></span>
+
+    <!-- ====== 代跑服务 ====== -->
+    <section>
+      <div class="section-heading reveal">
+        <div class="section-icon">&#x1F3C3;</div>
+        <div class="section-text">
+          <div class="section-overline">Services</div>
+          <div class="section-title">代跑服务</div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title">六大图跑图</div>
+        <div class="table-rows">
+          <div class="table-row table-row-header"><span class="col-name">地图</span><span class="col-price">一天</span><span class="col-price">包周</span><span class="col-price">包月</span><span class="col-note">备注</span></div>
+          <div class="table-row"><span class="col-name">晨岛</span><span class="col-price">1R</span><span class="col-price">5R</span><span class="col-price">20R</span><span class="col-note">不包试炼</span></div>
+          <div class="table-row"><span class="col-name">云野</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note"></span></div>
+          <div class="table-row"><span class="col-name">雨林</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note">不包风行网道</span></div>
+          <div class="table-row"><span class="col-name">霞谷</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note">不包雪隐峰赛道</span></div>
+          <div class="table-row"><span class="col-name">暮土</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note">大花随缘</span></div>
+          <div class="table-row"><span class="col-name">禁阁</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">60R</span><span class="col-note"></span></div>
+        </div>
+        <div class="highlight-box">
+          <div class="hl-item">全图一天 <span>12R</span></div>
+          <div class="hl-item">全图包周 <span>84R</span></div>
+          <div class="hl-item">全图包月 <span>360R</span></div>
+          <span class="tag">全图包月送每日任务</span>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title">每日任务</div>
+        <div class="table-rows">
+          <div class="table-row table-row-header"><span class="col-name">项目</span><span class="col-price">一天</span><span class="col-price">包周</span><span class="col-price">包月</span></div>
+          <div class="table-row"><span class="col-name">每日任务</span><span class="col-price">1R</span><span class="col-price">7R</span><span class="col-price">27R</span></div>
+          <div class="table-row"><span class="col-name">每日任务 + 季蜡</span><span class="col-price">2R</span><span class="col-price">14R</span><span class="col-price">50R</span></div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title">&#x1F525; 蜡烛套餐</div>
+        <div class="table-rows">
+          <div class="table-row table-row-header"><span class="col-name">数量</span><span class="col-price">一天</span><span class="col-price">包周</span><span class="col-price">包月</span><span class="col-note">备注</span></div>
+          <div class="table-row"><span class="col-name">5 根</span><span class="col-price">2R</span><span class="col-price">12R</span><span class="col-price">50R</span><span class="col-note"></span></div>
+          <div class="table-row"><span class="col-name">10 根</span><span class="col-price">3R</span><span class="col-price">18R</span><span class="col-price">80R</span><span class="col-note"></span></div>
+          <div class="table-row"><span class="col-name">15 根</span><span class="col-price">5R</span><span class="col-price">31R</span><span class="col-price">140R</span><span class="col-note"></span></div>
+          <div class="table-row"><span class="col-name">20 根</span><span class="col-price">10R</span><span class="col-price">60R</span><span class="col-price">270R</span><span class="col-note">包月送每日任务 15 次</span></div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title">&#x1F341; 季节包毕业 <span class="title-meta">（季卡自买）</span></div>
+        <div class="highlight-box" style="margin-top:0;">
+          <div class="hl-item">有卡包毕业 <span>100R</span></div>
+          <div class="hl-item">无卡包毕业 <span>110R</span></div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title">&#x2600;&#xFE0F; 其他服务</div>
+        <div class="table-rows">
+          <div class="table-row table-row-header"><span class="col-name">项目</span><span class="col-price">价格</span><span class="col-note">备注</span></div>
+          <div class="table-row"><span class="col-name">开全图</span><span class="col-price">15R</span><span class="col-note"></span></div>
+          <div class="table-row"><span class="col-name">小金人</span><span class="col-price">20R</span><span class="col-note">不包试炼和破晓季</span></div>
+          <div class="table-row"><span class="col-name">献祭</span><span class="col-price">7R</span><span class="col-note"></span></div>
+          <div class="table-row"><span class="col-name">代币</span><span class="col-price">1.5R/天 或 15R/全物品</span><span class="col-note"></span></div>
+          <div class="table-row"><span class="col-name">烧红石</span><span class="col-price">2R/次</span><span class="col-note"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== 代找先祖 ====== -->
+    <section>
+      <div class="section-heading reveal">
+        <div class="section-icon">&#x1F50D;</div>
+        <div class="section-text">
+          <div class="section-overline">Ancestors</div>
+          <div class="section-title">代找先祖</div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">全图套餐 <span class="acc-icon">&#x25BC;</span></div>
+          <div class="accordion-body"><div class="accordion-body-inner">
+            <div class="table-rows">
+              <div class="table-row table-row-header"><span class="col-name">项目</span><span class="col-count">数量</span><span class="col-price">价格</span></div>
+              <div class="table-row"><span class="col-name">全图先祖</span><span class="col-count">127 个</span><span class="col-price">150R</span></div>
+              <div class="table-row"><span class="col-name">全图常驻先祖</span><span class="col-count">37 个</span><span class="col-price">40R</span></div>
+            </div>
+          </div></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">各季节先祖 <span class="title-meta" style="font-family:Inter,sans-serif;font-size:12px;color:var(--gold-warm);">共 90 个 · 全包 129R</span> <span class="acc-icon">&#x25BC;</span></div>
+          <div class="accordion-body"><div class="accordion-body-inner">
+            <div class="scroll-row-wrapper" id="seasonScrollWrapper">
+              <div class="scroll-arrows"><button id="seasonScrollLeft" aria-label="向左">&#x2039;</button><button id="seasonScrollRight" aria-label="向右">&#x203A;</button></div>
+              <div class="scroll-row" id="seasonScroll">
+                <div class="scroll-card"><div><span class="sc-name">感恩季</span><span class="sc-detail"> 6个</span></div><span class="sc-price">10R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">追光季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个</span></div><span class="sc-price">14R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">归属季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个</span></div><span class="sc-price">12R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">音韵季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个</span></div><span class="sc-price">12R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">魔法季</span><span class="sc-detail"> 6个</span></div><span class="sc-price">11R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">圣岛季</span><span class="tag tag-hard">高难度</span><span class="sc-detail"> 6个</span></div><span class="sc-price">12R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">预言季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">梦想季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">5R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">集结季</span><span class="sc-detail"> 6个</span></div><span class="sc-price">6R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">小王子季</span><span class="sc-detail"> 6个</span></div><span class="sc-price">8R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">风行季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">潜海季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">表演季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">追忆季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">夜行季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">拾光季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">九色鹿季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">姆明季</span><span class="sc-detail"> 1个</span></div><span class="sc-price">2R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">青鸟季</span><span class="sc-detail"> 4个</span></div><span class="sc-price">4R</span></div>
+                <div class="scroll-card"><div><span class="sc-name">迁徙季</span><span class="sc-detail"> 1个</span></div><span class="sc-price">1R</span></div>
+              </div>
+            </div>
+            <div class="highlight-box" style="margin-top:16px;">
+              <div class="hl-item">追光先祖 <span>1R / 个</span></div>
+              <div class="hl-item">运光先祖 <span>2R / 个</span></div>
+            </div>
+          </div></div>
+        </div>
+      </div>
+    </section>
 
     <!-- ====== 给我留言 ====== -->
     <section>
@@ -376,6 +540,25 @@
       .catch(function(){errEl.textContent='网络异常，请检查网络后重试';errEl.classList.add('show');})
       .finally(function(){btn.classList.remove('loading');btn.textContent='\u27A4 发送留言';});
   });
+})();
+
+/* ACCORDION */
+function toggleAccordion(header) {
+  var item=header.parentElement;
+  item.classList.toggle('open');
+  var body=item.querySelector('.accordion-body');
+  if(item.classList.contains('open')){body.style.maxHeight=body.scrollHeight+'px';}
+  else{body.style.maxHeight='0';}
+}
+
+/* SEASON SCROLL */
+(function(){
+  var row=document.getElementById('seasonScroll');if(!row)return;
+  var l=document.getElementById('seasonScrollLeft'),r=document.getElementById('seasonScrollRight');
+  l.addEventListener('click',function(){row.scrollBy({left:-220,behavior:'smooth'});});
+  r.addEventListener('click',function(){row.scrollBy({left:220,behavior:'smooth'});});
+  function check(){var v=row.scrollWidth>row.clientWidth+2;l.style.opacity=v?'1':'0';r.style.opacity=v?'1':'0';l.style.pointerEvents=v?'auto':'none';r.style.pointerEvents=v?'auto':'none';}
+  check();window.addEventListener('resize',check);
 })();
 </script>
 </body>
